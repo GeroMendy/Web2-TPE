@@ -1,0 +1,100 @@
+<article>
+  <div class="tabla-lanzamientos col-12">
+    <h1>Lanzamientos destacados en lo que queda del a&ntildeo</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th>Plataforma</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a class="js-juego" href="#">Forza Horizon 4</a>
+          </td>
+          <td>2 de Octubre</td>
+          <td>PC, Xbox One</td>
+        </tr>
+        <tr>
+          <td>
+            <a class="js-juego" href="#">Call of Duty: Black Ops 4</a>
+          </td>
+          <td>12 de Octubre</td>
+          <td>PC, PS4, Xbox One</td>
+        </tr>
+        <tr>
+          <td>
+            <a class="js-juego" href="#">Hitman 2</a>
+          </td>
+          <td>13 de Noviembre</td>
+          <td>PC, PS4, Xbox One</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tabla-lanzamientos col-12">
+    <h1>Lanzamientos destacados en Junio</h1>
+
+    <ul class="listaPlataformas">
+      <p>Filtrar por plataforma:</p>
+      <li class="col-2">
+        <a class="filtroPlataforma">
+          Todas <img class="js-imagen-filtro" src="../img/filtro_lanzamientos/filtro0.svg" alt="todas">
+        </a>
+      </li>
+      <li class="col-2">
+        <a class="filtroPlataforma">
+          PC <img class="js-imagen-filtro" src="../img/filtro_lanzamientos/filtro1.svg" alt="PC">
+        </a>
+      </li>
+      <li class="col-2">
+        <a class="filtroPlataforma">
+          PS4 <img class="js-imagen-filtro" src="../img/filtro_lanzamientos/filtro2.svg" alt="PS4">
+        </a>
+      </li>
+      <li class="col-2">
+        <a class="filtroPlataforma">
+          Xbox One <img class="js-imagen-filtro" src="../img/filtro_lanzamientos/filtro3.svg" alt="Xbox One">
+        </a>
+      </li>
+      <li class="col-2">
+        <a class="filtroPlataforma">
+          Switch <img class="js-imagen-filtro" src="../img/filtro_lanzamientos/filtro4.svg" alt="Nintendo Switch">
+        </a>
+      </li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th>Plataforma</th>
+        </tr>
+      </thead>
+      <tbody id="js-tbodyLanzamientos">
+
+      </tbody>
+      <tfoot id="js-tfootLanzamientos">
+        <tr>
+          <td>
+            <input class="js-cargaLanzamiento col-12 col-sm-10 col-md-8" type="text" name="" value="">
+          </td>
+          <td>
+            <input class="js-cargaLanzamiento col-12 col-sm-10 col-md-8" type="number" name="" value="">
+          </td>
+          <td>
+            <input class="js-cargaLanzamiento col-12 col-sm-10 col-md-8" type="text" name="" value="">
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <button id="post-juego" class="botonPostJuegos col-12 col-sm-4 col-md-2 col-lg-1" type="button" name="button">Enviar</button>
+    <button id="put-juego" class="botonPostJuegos col-12 col-sm-4 col-md-2 col-lg-1" type="button" name="button" disabled>Modificar</button>
+    <button id="js-post-multiples-juegos" class="botonPostJuegos col-12" type="button" name="button">
+      <p>generar <input id="cantJuegos" type="number" name="" value="3"> juegos</p>
+    </button>
+  </div>
+</article>
