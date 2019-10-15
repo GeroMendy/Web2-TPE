@@ -5,11 +5,11 @@
     class cervezas_view{
 
         private $plantilla;
-        private $titutlo;
+        private $tituto;
 
         public function __construct(){
             $this->plantilla = new Smarty();
-            $this->titulo="";
+            $this->titulo="Cervezas";
         }
 
         public function generateTable($list_cervezas){

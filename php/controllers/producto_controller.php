@@ -20,7 +20,7 @@
             $this->cervezas_model = new cervezas_model();
             $this->estilos_model = new estilos_model();
             $this->cervezas_view = new cervezas_view();
-  //          $this->estilos_view = new estilos_view();
+            $this->estilos_view = new estilos_view();
         }
 
         // Functions para Cerveza.
@@ -50,7 +50,7 @@
         
         public function getEstilos(){
             $list_estilos = $this->estilos_model->getEstilos();
-            $this->cervezas_estilos->generateTable($list_estilos);
+            $this->estilos_view->generateTable($list_estilos);
         }
 
     }
