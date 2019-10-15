@@ -17,21 +17,34 @@
                 Nombre
             </div>
             <div class="col-sm border border-secondary">
-                Imagen
+                Color
             </div>
             <div class="col-sm border border-secondary">
-                Estilo
+                
+                Aroma
             </div>
             <div class="col-sm border border-secondary">
-                Amargor en IBU
+                Apariencia
             </div>
             <div class="col-sm border border-secondary">
-                Alcohol %
+                sabor
+            </div>
+            <div class="col-sm border border-secondary">
+                Amargor Mínimo
+            </div>
+            <div class="col-sm border border-secondary">
+                Amargor Máximo     
+            </div>
+            <div class="col-sm border border-secondary">
+                Alcohol Min %           
+            </div>
+            <div class="col-sm border border-secondary">
+                Alcohol Max %           
             </div>
         </div>
-        {foreach from=$cervezas item=cer}
+        {foreach from=$estilos item=est}
            <div class="row">
-                {foreach from=$cer item=carac}
+                {foreach from=$est item=carac}
                 <div class="col-sm border border-secondary text-center">
                         {$carac}
                 </div>
