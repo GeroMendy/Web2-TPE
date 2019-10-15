@@ -29,6 +29,7 @@
                 Alcohol %
             </div>
         </div>
+<<<<<<< HEAD
         {foreach from=$cervezas item=cer}
            <div class="row">
                 {foreach from=$cer item=carac}
@@ -39,5 +40,18 @@
             </div>  
             {/foreach}
     </div> 
+=======
+            {foreach from=$cervezas item=cer}
+            <div class="row">
+                {foreach from=$cer item=carac}
+                <div class="col-sm border border-secondary text-center">
+                    {$carac}
+                </div>
+                {/foreach}
+            </div>
+            {/foreach}
+        </table>        
+    </div>   
+>>>>>>> 1bdbda0b4617b5e1ec1aa2cf3dae0d000a9b16b4
 </body>
 </html>

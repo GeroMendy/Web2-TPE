@@ -5,7 +5,11 @@
     class cervezas_view{
 
         private $plantilla;
+<<<<<<< HEAD
         private $titulo;
+=======
+        private $tituto;
+>>>>>>> 1bdbda0b4617b5e1ec1aa2cf3dae0d000a9b16b4
 
         public function __construct(){
             $this->plantilla = new Smarty();
