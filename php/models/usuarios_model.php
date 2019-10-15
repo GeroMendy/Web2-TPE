@@ -7,7 +7,7 @@
 
         public function __construct(){
 
-            $this->db=new PDO('mysql:host=localhost;'.'dbname=db_mendyusunof;charset=utf8','root','');
+            $this->db=new PDO('mysql:host=localhost;'.'dbname=db_mendyusunoff;charset=utf8','root','');
             $this->tabla="usuario";
 
         }

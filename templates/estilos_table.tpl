@@ -20,7 +20,6 @@
                 Color
             </div>
             <div class="col-sm border border-secondary">
-                
                 Aroma
             </div>
             <div class="col-sm border border-secondary">
