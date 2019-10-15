@@ -11,21 +11,20 @@
             $this->tabla="usuario";
 
         }
-        
-        /*
-        public function getUsuarioByNombre($nombre){
-            $select = $this->db->prepare("SELECT * FROM ".$this->tabla." WHERE nombre=?");
-            $select->execute(array($nombre));
-            $usuario = $select->fetch(PDO::FETCH_OBJ);
-            return $usuario;
-        }
-        */
 
-        public function getUsuarioByMail($mail){
+        public function getUsuario($mail){
             $select = $this->db->prepare("SELECT * FROM ".$this->tabla." WHERE mail=?");
             $select->execute(array($mail));
             $usuario = $select->fetch(PDO::FETCH_OBJ);
             return $usuario;
+        }
+        public function registrarUsuario($nombre,$mail,$password,$admin){
+
+            //password se vuelve password_encriptada
+            $password = md5($password);
+
+            $insert = $this->db->prepare("INSERT INTO ".$this->tabla."(nombre,mail,password,admin) VALUES (?,?,?,?)");
+            $insert->execute(array($nombre,$mail,$password,$admin));
         }
 
     }
