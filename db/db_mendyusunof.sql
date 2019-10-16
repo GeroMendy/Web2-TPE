@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-09-2019 a las 00:47:55
+-- Tiempo de generación: 17-10-2019 a las 00:48:06
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -84,7 +84,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `mail` varchar(100) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -96,7 +96,8 @@ CREATE TABLE `usuario` (
 -- Indices de la tabla `cerveza`
 --
 ALTER TABLE `cerveza`
-  ADD PRIMARY KEY (`id_cerveza`);
+  ADD PRIMARY KEY (`id_cerveza`),
+  ADD KEY `id_estilo` (`id_estilo`);
 
 --
 -- Indices de la tabla `estilo`
@@ -131,6 +132,16 @@ ALTER TABLE `estilo`
 --
 ALTER TABLE `usuario`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `cerveza`
+--
+ALTER TABLE `cerveza`
+  ADD CONSTRAINT `cerveza_ibfk_1` FOREIGN KEY (`id_estilo`) REFERENCES `estilo` (`id_estilo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

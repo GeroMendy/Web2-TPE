@@ -43,7 +43,7 @@
 
             $cerveza = reemplazarEstilo($cerveza);
 
-            $this->cerveza_model->displayCerveza($cerveza);
+            $this->cervezas_view->displayCerveza($cerveza);
         }
 
         private function reemplazarEstilo($cerveza){

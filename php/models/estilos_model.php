@@ -33,7 +33,7 @@ class estilos_model{
         $select = $this->db->prepare("SELECT nombre FROM ".$this->tabla." WHERE id_estilo=?");
         $select->execute(array($id_estilo));
         $estilo = $select->fetch(PDO::FETCH_COLUMN); //REVISAR.
-        return $estilo;
+        return $estilo[0];
     }
 }
 
