@@ -22,6 +22,4 @@
             $this->plantilla->assign('estilos',$data);
             $this->plantilla->display("../templates/estilos_table.tpl");
         }
-
-
     }

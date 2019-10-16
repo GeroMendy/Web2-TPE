@@ -3,7 +3,6 @@
     require_once "../libs/Smarty.class.php";
 
     class cervezas_view{
-
         private $plantilla;
         private $titulo;
         public function __construct(){
