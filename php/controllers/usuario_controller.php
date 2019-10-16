@@ -13,13 +13,23 @@
             $this->usuarios_view = new usuarios_view();
         }
 
+        public function displayLogIn(){
+            //TODO
+        }
+        public function displayRegister(){
+            //TODO
+        }
+
         public function logIn($mail, $password){
+
             $user = $this->usuarios_model->getUsuario($mail);
+            
             if(!empty($user)&&password_verify($password,$user->password)){
                 
                 startSession($user);
 
             }
+            
         }
         public function register($nombre,$mail,$password){
 
@@ -34,7 +44,7 @@
         private function startSession($user){
 
             //Por las dudas
-            finishSession();
+            logOut();
 
             session_start();
 
@@ -43,7 +53,7 @@
             $_SESSION['usuario_admin'] = ($user->admin==1||$user->admin=='1');
             $_SESSION['usuario_id'] = $user->id_usuario;
         }
-        public function finishSession(){
+        public function logOut(){
 
             session_destroy();
 

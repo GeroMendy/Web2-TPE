@@ -15,4 +15,11 @@
 
     $router->addRoute("login","GET",USER_C,"displayLogIn");
     $router->addRoute("login","POST",USER_C,"logIn");
+    $router->addRoute("register","GET",USER_C,"displayRegister");
+    $router->addRoute("register","POST",USER_C,"register");
+    $router->addRoute("estilo","GET",PROD_C,"getEstilos");
+    $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
+    $router->addRoute("cerveza","GET",PROD_C,"getCervezas");
+    $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
+
 

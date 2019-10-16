@@ -28,6 +28,13 @@ class estilos_model{
         $delete = $this->db->prepare("DELETE FROM ".$this->tabla." WHERE id_estilo=?");
         $delete->execute(array($id_estilo));
     }
+
+    public function getNombre($id_estilo){
+        $select = $this->db->prepare("SELECT nombre FROM ".$this->tabla." WHERE id_estilo=?");
+        $select->execute(array($id_estilo));
+        $estilo = $select->fetch(PDO::FETCH_COLUMN); //REVISAR.
+        return $estilo;
+    }
 }
 
 ?>

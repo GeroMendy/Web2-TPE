@@ -31,8 +31,27 @@
         }
         public function getCervezas(){
             $list_cervezas = $this->cervezas_model->getCervezas();
+
+            foreach ($list_cerveza as $cerv) {
+                $cerv = reemplazarEstilo($cerv);
+            }
+
             $this->cervezas_view->generateTable($list_cervezas);
         }
+        public function getCerveza($id_cerveza){
+            $cerveza = $this->cerveza_model->getCerveza($id_cerveza);
+
+            $cerveza = reemplazarEstilo($cerveza);
+
+            $this->cerveza_model->displayCerveza($cerveza);
+        }
+
+        private function reemplazarEstilo($cerveza){
+            $cerveza->$id_estilo = $this->estilos_model->getNombre($cerveza->id_estilo);
+            return $cerveza;
+        }
+
+
         public function addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol){
             $this->cervezas_model->addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol);
             $this->getCervezas();
@@ -51,6 +70,10 @@
         public function getEstilos(){
             $list_estilos = $this->estilos_model->getEstilos();
             $this->estilos_view->generateTable($list_estilos);
+        }
+        public function getEstilo($id_estilo){
+            $this->estilos_model->getEstilo($id_estilo);
+            $this->estilos_view->displayEstilo($id_estilo);
         }
 
     }
