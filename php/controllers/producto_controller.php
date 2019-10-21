@@ -51,6 +51,8 @@
             return $cerveza;
         }
 
+        // $arr = {key = value}
+
 
         public function addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol){
             $this->cervezas_model->addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol);
