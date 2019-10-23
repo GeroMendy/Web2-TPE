@@ -31,6 +31,7 @@
             }
             
         }
+        
         public function register($nombre,$mail,$password){
 
             // debería ser  $admin = solicitarAdmin($mail);
@@ -54,14 +55,14 @@
             $_SESSION['usuario_id'] = $user->id_usuario;
         }
         public function logOut(){
-
             session_destroy();
-
         }
+
         public function isLogged(){
             session_start();
             return !empty($_SESSION['usuario_mail']);
         }
+
         public function isAdmin(){
             session_start();
             return (!empty($_SESSION['usuario_admin'])&&$_SESSION['usuario_admin']);

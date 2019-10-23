@@ -73,7 +73,7 @@
                         <form><input type="number" value='{$cerveza->alcohol}'></form>
                 </div>
         </div>
-        <form><input type="submit" value='Confirmar'></form>
+        <form><input type="submit" value='Confirmar' method=''></form>
     </div>
 </body>
 </html>

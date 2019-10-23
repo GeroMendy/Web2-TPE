@@ -7,16 +7,16 @@
     <title>{$titulo}</title>
 </head>
 <body>
-    <form>
-        <input type="text" value='Nombre'>
-        <input type="text" value='Imagen'>
-        <select name="estilo">
+    <form method='POST' action='{$base}'>
+        Nombre de Cerveza: <input type="text" name='nombre'></br>
+        Nombre Archivo imagen: <input type="text" value=''></br>
+        Estilo: <select name="estilo">
             {foreach from=$estilos item=est}
                 <option value="{$est->nombre}">{$est->nombre}</option>
             {/foreach}
-        </select>
-        <input type="number" value='{$cerveza->amargor}'>
-        <input type="number" value='{$cerveza->alcohol}'>
+        </select></br>
+        Amargor: <input type="number"></br>
+        Alcohol %: <input type="number" value='0'></br>
         <input type="submit" value='Confirmar'>
     </form>
 </body>

@@ -19,6 +19,11 @@
     $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
     $router->addRoute("editar/:ID","GET",PROD_C,"editCerveza");
     $router->addRoute("eliminar/:ID","GET",PROD_C,"deleteCerveza");
+    $router->addRoute("agregar","GET",PROD_C,"displayAgregarCerveza");
+    $router->addRoute("agregar","POST",PROD_C,"addCerveza");
+
+
+
     $router->setDefaultRoute(PROD_C,"getCervezas");    
     $router->route($_GET["action"], $_SERVER['REQUEST_METHOD']);
 
