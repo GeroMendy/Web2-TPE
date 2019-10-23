@@ -63,7 +63,6 @@
             $this->getCervezas();
         }
 
-
         //Functions para Estilos.
         
         public function getEstilos(){

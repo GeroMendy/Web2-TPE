@@ -59,9 +59,5 @@
                         <form  action="{$base}/eliminar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Eliminar'></form>
                         {/if}
                 </div>
-            </div>
-            {/foreach}
-        </table>        
-    </div>   
 </body>
 </html>

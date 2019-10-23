@@ -26,30 +26,30 @@
                 Apariencia
             </div>
             <div class="col-sm border border-secondary">
-                Sabor
+                sabor
             </div>
             <div class="col-sm border border-secondary">
-                Amargor Min
+                Amargor Mínimo
             </div>
             <div class="col-sm border border-secondary">
-                Amargor Max
+                Amargor Máximo     
             </div>
             <div class="col-sm border border-secondary">
-                Alcohol Min
+                Alcohol Min %           
             </div>
             <div class="col-sm border border-secondary">
-                Alcohol Max
+                Alcohol Max %           
             </div>
         </div>
-            {foreach from=$estilos item=est}
-            <div class="row">
+        {foreach from=$estilos item=est}
+           <div class="row">
                 {foreach from=$est item=carac}
                 <div class="col-sm border border-secondary text-center">
-                    {$carac}
+                        {$carac}
                 </div>
                 {/foreach}
-            </div>
+            </div>  
             {/foreach}
-    </div>   
+    </div> 
 </body>
 </html>
