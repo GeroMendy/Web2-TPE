@@ -11,7 +11,6 @@
         public function generateTable($list_cervezas){
             $this->plantilla->assign('titulo','Lista de Cervezas');
             $this->plantilla->assign('cervezas',$list_cervezas);
-            var_dump(BASE_URL);
             $this->plantilla->assign('base',BASE_URL);
             $this->plantilla->display("templates/cervezas_table.tpl");
         }

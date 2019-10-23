@@ -3,7 +3,7 @@
     require_once("php/controllers/usuario_controller.php");
     require_once("php/router.php");
     
-    define("BASE_URL", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]).'/');
+    define("BASE_URL", 'http://'.$_SERVER["SERVER_NAME"].':'.$_SERVER["SERVER_PORT"].dirname($_SERVER["PHP_SELF"]));
     define("LOGIN", BASE_URL . 'login');
     define("VER", BASE_URL . 'ver');
     define("USER_C" , 'usuario_controller');
@@ -17,6 +17,8 @@
     $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
     $router->addRoute("cerveza","GET",PROD_C,"getCervezas");
     $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
-    
+    $router->addRoute("editar/:ID","GET",PROD_C,"editCerveza");
+    $router->addRoute("eliminar/:ID","GET",PROD_C,"deleteCerveza");
+    $router->setDefaultRoute(PROD_C,"getCervezas");    
     $router->route($_GET["action"], $_SERVER['REQUEST_METHOD']);
 

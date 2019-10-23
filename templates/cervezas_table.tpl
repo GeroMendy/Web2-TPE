@@ -41,7 +41,7 @@
                       {$cer->nombre}  
                 </div>
                 <div class="col-sm border border-secondary text-center">
-                      <img src='./img/{$cer->imagen}' width="42">
+                      <img src='{$base}/img/{$cer->imagen}' width="42">
                 </div>
                 <div class="col-sm border border-secondary text-center">
                       {$cer->Estilo}  
@@ -53,9 +53,11 @@
                       {$cer->alcohol}  
                 </div>
                 <div class="col-sm border border-secondary text-center">
-                        <form  action="{$base}/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='VER'></form>
-                        <button>Borrar</button>
-                        <button>Etc</button>
+                        <form  action="{$base}/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='Ver'></form>
+                        {if $admin}
+                        <form  action="{$base}/editar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Editar'></form>
+                        <form  action="{$base}/eliminar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Eliminar'></form>
+                        {/if}
                 </div>
             </div>
             {/foreach}

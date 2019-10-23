@@ -31,6 +31,7 @@
 
         public function getCerveza($id_cerveza){
             var_dump($id_cerveza);
+            var_dump(BASE_URL);
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
             $this->cervezas_view->generateTable([$cerveza]);
         }
