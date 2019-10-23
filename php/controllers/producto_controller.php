@@ -26,14 +26,14 @@
 
         public function getCervezas(){
             $list_cervezas = $this->cervezas_model->getCervezas();
-            $this->cervezas_view->generateTable($list_cervezas);
+            $this->cervezas_view->generateTable($list_cervezas,TRUE);//VALIDAR SI ES ADMIN
         }
 
         public function getCerveza($id_cerveza){
             var_dump($id_cerveza);
             var_dump(BASE_URL);
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->generateTable([$cerveza]);
+            $this->cervezas_view->generateTable([$cerveza],TRUE);////VALIDAR SI ES ADMIN
         }
 
         public function addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol){//VALIDAR SI ES ADMIN
@@ -41,9 +41,10 @@
             $this->getCervezas();
         }
 
-        public function agregarCerveza(){
+        public function displayAgregarCerveza(){
             $estilos = $this->estilos_model->getEstilos();
-            $this->cervezas_view->addCerveza($estilos);
+            $this->cervezas_view->displayAgregarCerveza($estilos);
+
             //Cómo traigo los datos?
         }
 

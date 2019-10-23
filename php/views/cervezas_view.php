@@ -8,10 +8,11 @@
             $this->plantilla = new Smarty();
         }
 
-        public function generateTable($list_cervezas){
+        public function generateTable($list_cervezas, $admin){
             $this->plantilla->assign('titulo','Lista de Cervezas');
             $this->plantilla->assign('cervezas',$list_cervezas);
             $this->plantilla->assign('base',BASE_URL);
+            $this->plantilla->assign('admin',$admin);
             $this->plantilla->display("templates/cervezas_table.tpl");
         }
 
@@ -22,7 +23,7 @@
             $this->plantilla->display("templates/edit_cerveza.tpl");
         }
 
-        public function addCerveza($estilos){
+        public function displayAgregarCerveza($estilos){
             $this->plantilla->assign('titulo','Agregar Cerveza');
             $this->plantilla->assign('estilos', $estilos);
             $this->plantilla->display("templates/add_cerveza.tpl");
