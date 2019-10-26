@@ -16,7 +16,7 @@
             $this->plantilla->display("templates/cervezas_table.tpl");
         }
 
-        public function editCerveza($cerveza,$estilos){
+        public function displayEditCerveza($cerveza,$estilos){
             $this->plantilla->assign('titulo','Editar Cerveza');
             $this->plantilla->assign('cerveza', $cerveza);
             $this->plantilla->assign('estilos', $estilos);

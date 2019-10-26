@@ -10,11 +10,11 @@
             $this->plantilla = new Smarty();
         }
 
-        public function generateTable($list_estilos){
+        public function generateTable($list_estilos,$admin){
             $this->plantilla->assign('titulo','Estilos');
             $this->plantilla->assign('estilos',$list_estilos);
+            $this->plantilla->assign('admin',$admin);
             $this->plantilla->display("templates/estilos_table.tpl");
-            $this->plantilla->assign('admin',$_SESSION["usuario_admin"]);
 
         }
     }

@@ -1,2 +1,4 @@
 #Ignora templates compilados:
 templates_c/
+#Ignora la carpeta generada por XDebug:
+.vscode/
