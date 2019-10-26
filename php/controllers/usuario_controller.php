@@ -1,70 +1,60 @@
 <?php
 
     require_once "php/models/usuarios_model.php";
+    require_once "php/controllers/session_controller.php";
     //require_once "./views/usuarios_view.php";
 
     class usuario_controller{
 
-        private $usuarios_model;
-        private $usuarios_view;
+        private $model;
+//        private $view;
 
         public function __construct(){
-            $this->usuarios_model = new usuarios_model();
-            $this->usuarios_view = new usuarios_view();
+            $this->model = new usuarios_model();
+//            $this->view = new usuarios_view();
         }
 
         public function displayLogIn(){
-            //TODO
+            //$this->view->displayLogIn();
         }
         public function displayRegister(){
-            //TODO
+            //$this->view->displayRegister();
         }
 
         public function logIn($mail, $password){
-
-            $user = $this->usuarios_model->getUsuario($mail);
-            
-            if(!empty($user)&&password_verify($password,$user->password)){
-                
+            $user = $this->model->getUsuario($mail);
+            if(!empty($user)&&md5($password)==$user->password){
                 startSession($user);
-
             }
-            
         }
         public function register($nombre,$mail,$password){
-
-            // debería ser  $admin = solicitarAdmin($mail);
+            // debería ser $admin = solicitarAdmin($mail);
             $admin =false;
-
-            $this->usuaios_model->registrarUsuario($nombre,$mail,$password,$admin);
-
+            $this->model->registrarUsuario($nombre,$mail,$password,$admin);
             logIn($mail, $password);
-
-        }
-        private function startSession($user){
-
-            //Por las dudas
-            logOut();
-
-            session_start();
-
-            $_SESSION['usuario_nombre'] = $user->nombre;
-            $_SESSION['usuario_mail'] = $user->mail ;
-            $_SESSION['usuario_admin'] = ($user->admin==1||$user->admin=='1');
-            $_SESSION['usuario_id'] = $user->id_usuario;
         }
         public function logOut(){
-
-            session_destroy();
-
+            finishSession();
+            $this->displayLogIn();
         }
-        public function isLogged(){
-            session_start();
-            return !empty($_SESSION['usuario_mail']);
+
+        //ELIMINAR AL TERMINAR TESTING:
+        public function DEBUG_logIn(){
+            echo "LOGGING<br>";
+            $this->logIn('debuger@code.com','a');
+            echo "LOGGED<br>";
         }
-        public function isAdmin(){
-            session_start();
-            return (!empty($_SESSION['usuario_admin'])&&$_SESSION['usuario_admin']);
+        public function DEBUG_logOut(){
+            $this->logOut();
+        }
+        public function DEBUG_printLog(){
+            $data = [
+            'nombre' => getUserSessionNombre(),
+            'mail' => getUserSessionMail(),
+            'id' => getUserSessionId(),
+            'admin' => isAdmin()
+            ];
+            var_dump($data);
         }
 
     }

@@ -55,8 +55,8 @@
                 <div class="col-sm border border-secondary text-center">
                         <form  action="{$base}/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='Ver'></form>
                         {if $admin}
-                        <form  action="{$base}/editar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Editar'></form>
-                        <form  action="{$base}/eliminar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Eliminar'></form>
+                        <form  action="{$base}/editar/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='Editar'></form>
+                        <form  action="{$base}/eliminar/cerveza/{$cer->id_cerveza}" method="POST"><input type="submit" value='Eliminar'></form>
                         {/if}
                 </div>
             </div>

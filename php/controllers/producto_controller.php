@@ -3,6 +3,8 @@
     require_once "php/models/estilos_model.php";
     require_once "php/views/cervezas_view.php";
     require_once "php/views/estilos_view.php";
+    require_once "php/controllers/session_controller.php";
+
     // Controller para Cervezas y Estilos.
     class producto_controller{
         private $cervezas_model;
@@ -18,6 +20,9 @@
             $this->estilos_model = new estilos_model();
             $this->estilos_view = new estilos_view();
         }
+        private function redirectHeader(){
+            header('Location: ');
+        }
         // Functions para Cerveza.
         public function getCervezasSortedByEstilo(){
             $list_cervezas = $this->cervezas_model->getCervezasSortedByEstilo();
@@ -30,33 +35,47 @@
         }
 
         public function getCerveza($id_cerveza){
-            var_dump($id_cerveza);
-            var_dump(BASE_URL);
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->generateTable([$cerveza],TRUE);////VALIDAR SI ES ADMIN
+            $admin = isAdmin();
+            $this->cervezas_view->generateTable([$cerveza],$admin);
         }
 
-        public function addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol){//VALIDAR SI ES ADMIN
-            $this->cervezas_model->addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol);
-            $this->getCervezas();
+        public function addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol){
+            if(isAdmin()){
+                $this->cervezas_model->addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol);
+                $this->getCervezas();
+            }else{
+                $this->redirectHeader();
+            }
         }
 
         public function displayAgregarCerveza(){
-            $estilos = $this->estilos_model->getEstilos();
-            $this->cervezas_view->displayAgregarCerveza($estilos);
-
-            //Cómo traigo los datos?
+            if(isAdmin()){
+                $estilos = $this->estilos_model->getEstilos();
+                $this->cervezas_view->displayAgregarCerveza($estilos);
+            }else{
+                $this->redirectHeader();
+            }
         }
 
-        public function deleteCerveza($id_cerveza){//VALIDAR SI ES ADMIN
-            $this->cervezas_model->deleteCerveza($id_cerveza[":ID"]);
-            $this->getCervezas();
+        public function deleteCerveza($params = null){
+            if(isAdmin()){
+                $this->cervezas_model->deleteCerveza($params[":ID"]);
+                $this->getCervezas();
+            }else{
+                $this->redirectHeader();
+            }
         }
 
-        public function editCerveza($id){  //VALIDAR SI ES ADMIN
-            $cerveza = $this->cervezas_model->getCerveza($id[":ID"]);
-            $estilos = $this->estilos_model->getEstilos();
-            $this->cervezas_view->editCerveza($cerveza,$estilos);
+        public function displayEditCerveza($params = null){
+            $admin = isAdmin();
+            if($admin){
+                $cerveza = $this->cervezas_model->getCerveza($params[":ID"]);
+                $estilos = $this->estilos_model->getEstilos();
+                $this->cervezas_view->displayEditCerveza($cerveza,$estilos);
+            }else{
+                $this->redirectHeader();
+            }
         }
 
         public function updateCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza){
@@ -70,8 +89,8 @@
             $list_estilos = $this->estilos_model->getEstilos();
             $this->estilos_view->generateTable($list_estilos);
         }
-        public function getEstilo($id_estilo){
-            $est=$this->estilos_model->getEstilo($id_estilo[":ID"]);
+        public function getEstilo($params = null){
+            $est=$this->estilos_model->getEstilo($params[":ID"]);
             $this->estilos_view->generateTable([$est]);
         }
     }
