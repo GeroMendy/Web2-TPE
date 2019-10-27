@@ -8,72 +8,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row border border-secondary bg-warning text-dark text-center">
-            <div class="col-sm border border-secondary">
-                ID
-            </div>
-            <div class="col-sm border border-secondary">
-                Nombre
-            </div>
-            <div class="col-sm border border-secondary">
-                Imagen
-            </div>
-            <div class="col-sm border border-secondary">
-                Estilo
-            </div>
-            <div class="col-sm border border-secondary">
-                Amargor en IBU
-            </div>
-            <div class="col-sm border border-secondary">
-                Alcohol %
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm border border-secondary text-center">
-                    {$cerveza->id_cerveza}  
-            </div>
-            <div class="col-sm border border-secondary text-center">
-                    {$cerveza->nombre}  
-            </div>
-            <div class="col-sm border border-secondary text-center">
-                    {$cerveza->imagen}
-            </div>
-            <div class="col-sm border border-secondary text-center">
-                    {$cerveza->Estilo}  
-            </div>
-            <div class="col-sm border border-secondary text-center">
-                    {$cerveza->amargor}  
-            </div>
-            <div class="col-sm border border-secondary text-center">
-                    {$cerveza->alcohol}  
-            </div>
-        </div>
-        <div class="row">
-                <div class="col-sm border border-secondary text-center">
-                        No Editable
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                        <form><input type="text" value='{$cerveza->nombre}'></form>
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                        <form><input type="text" value='{$cerveza->imagen}'></form>
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                         <form><select name="estilo">
-                            {foreach from=$estilos item=est}
-                                <option value="{$est->nombre}">{$est->nombre}</option>
-                            {/foreach}
-                        </select></form>
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                        <form><input type="number" value='{$cerveza->amargor}'></form>
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                        <form><input type="number" value='{$cerveza->alcohol}'></form>
-                </div>
-        </div>
-        <form><input type="submit" value='Confirmar' method=''></form>
-    </div>
+    <form method='POST' action='{$base}/editar/{$cerveza->id_cerveza}'>
+        <fieldset>
+            <legend>Cerveza ID:{$cerveza->id_cerveza}</legend>
+            ID: <input type="text" value='{$cerveza->id_cerveza}' name="id_cerveza" readonly></br>
+            Nombre: <input type="text" value='{$cerveza->nombre}' name="nombre"></br>
+            Imagen: <input type="text" value='{$cerveza->imagen}' name="imagen"></br>
+            Estilo: <select name="estilo">
+                {foreach from=$estilos item=est}
+                    <option value="{$est->nombre}">{$est->nombre}</option>
+                {/foreach}
+            </select></br>
+            Amargor: <input type="number" value='{$cerveza->amargor}' name="amargor" min=0 max=300></br>
+            Alcohol %: <input type="number" value='{$cerveza->alcohol}' name="alcohol" min=0 max=50></br>
+            <input type="submit" value='Confirmar'>
+        </fieldset>
+    </form>
 </body>
 </html>

@@ -11,19 +11,37 @@
     $router = new Router();
     $router->addRoute("login","GET",USER_C,"displayLogIn");
     $router->addRoute("login","POST",USER_C,"logIn");
+    
     $router->addRoute("register","GET",USER_C,"displayRegister");
     $router->addRoute("register","POST",USER_C,"register");
-    $router->addRoute("estilo","GET",PROD_C,"getEstilos");
-    $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
+
+    //Cervezas
+    $router->addRoute("sorted","GET",PROD_C,"getCervezasSortedByEstilo");
     $router->addRoute("cerveza","GET",PROD_C,"getCervezas");
     $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
+
     $router->addRoute("editar/:ID","GET",PROD_C,"editCerveza");
+    $router->addRoute("editar/:ID", "POST", PROD_C, "updateCerveza");//No funciona consulta SQL
+    
     $router->addRoute("eliminar/:ID","GET",PROD_C,"deleteCerveza");
+    
     $router->addRoute("agregar","GET",PROD_C,"displayAgregarCerveza");
     $router->addRoute("agregar","POST",PROD_C,"addCerveza");
+    //Cervezas
 
+    //Estilos
+    $router->addRoute("estilo","GET",PROD_C,"getEstilos");
+    $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
 
+    $router->addRoute("editarE/:ID","GET",PROD_C,"editEstilo"); 
+    $router->addRoute("editarE/:ID", "POST", PROD_C, "updateEstilo");//No funciona consulta SQL
+    
+    $router->addRoute("eliminarE/:ID","GET",PROD_C,"deleteEstilo");
 
-    $router->setDefaultRoute(PROD_C,"getCervezas");    
+    $router->addRoute("agregarE","GET",PROD_C,"displayAgregarEstilo");
+    $router->addRoute("agregarE","POST",PROD_C,"addEstilo");
+    //Estilos
+    
+    $router->setDefaultRoute(PROD_C,"index");    
     $router->route($_GET["action"], $_SERVER['REQUEST_METHOD']);
 

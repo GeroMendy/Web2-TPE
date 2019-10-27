@@ -31,7 +31,7 @@ class cervezas_model{
         $insert = $this->db->prepare("INSERT INTO ".$this->tabla."(nombre,imagen,id_estilo,amargor,alcohol) VALUES(?,?,?,?,?)");
         $insert->execute(array($nombre,$imagen,$id_estilo,$amargor,$alcohol));
     }
-    public function updateCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza){ //Revisar código SQL. 
+    public function updateCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza){ //Revisar código SQL. NO FUNCIONA
         $update = $this->db->prepare("UPDATE ".$this->tabla."(nombre,imagen,id_estilo,amargor,alcohol) VALUES(?,?,?,?,?) WHERE id_cerveza=?");
         $update->execute(array($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza));
     }
