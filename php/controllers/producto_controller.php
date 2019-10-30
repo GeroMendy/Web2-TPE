@@ -26,7 +26,7 @@
             $this->index_view=new index_view();
         }
         public function index(){
-            $this->index_view->displayIndex();
+            $this->index_view->displayIndex(isLogged());
         }
         public function redirectHeader(){
             header('Location: '.BASE_URL);
