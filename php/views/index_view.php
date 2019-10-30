@@ -10,9 +10,10 @@
             $this->plantilla = new Smarty();
         }
 
-        public function displayIndex(){
+        public function displayIndex($logged){
             $this->plantilla->assign('titulo','Índice');
             $this->plantilla->assign('base',BASE_URL);
+            $this->plantilla->assign('logged',$logged);
             $this->plantilla->display("templates/index.tpl");
         }
     }

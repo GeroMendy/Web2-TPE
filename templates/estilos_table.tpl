@@ -11,6 +11,7 @@
     {if $admin}
         <form  action="{$base}/agregar/estilo/" method="GET"><input type="submit" value='Agregar Estilo'></form>
     {/if}
+     <form  action="{$base}" method="GET"><input type="submit" value='HOME'></form>
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">
             <div class="col-sm border border-secondary">

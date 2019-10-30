@@ -22,7 +22,7 @@ class cervezas_model{
     }
 
     public function getCervezasSortedByEstilo(){
-        $select = $this->db->prepare("SELECT cerveza.*, estilo.nombre as Estilo FROM ".$this->tabla." JOIN estilo ON cerveza.id_estilo = estilo.id_estilo ORDER BY id_estilo DESC");
+        $select = $this->db->prepare("SELECT cerveza.*, estilo.nombre as Estilo FROM ".$this->tabla." JOIN estilo ON cerveza.id_estilo = estilo.id_estilo ORDER BY Estilo ASC");
         $select->execute();
         $cervezas = $select->fetchAll(PDO::FETCH_OBJ);
         return $cervezas;

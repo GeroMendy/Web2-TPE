@@ -14,7 +14,9 @@
 
     $router->addRoute("login","GET",USER_C,"displayLogIn");
     $router->addRoute("login","POST",USER_C,"logIn");
+    $router->addRoute("logout","GET",USER_C,"logOut");
     
+
     $router->addRoute("register","GET",USER_C,"displayRegister");
     $router->addRoute("register","POST",USER_C,"register");
 
