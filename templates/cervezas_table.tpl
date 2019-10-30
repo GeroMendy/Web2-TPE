@@ -9,10 +9,10 @@
 </head>
 <body>
     {if sizeof($cervezas) ne 1}
-        <form  action="{$base}/sorted/" method="GET"><input type="submit" value='Ordenar por estilo'></form>
+        <form  action="{$base}/cerveza/sorted/" method="GET"><input type="submit" value='Ordenar por estilo'></form>
     {/if}
     {if $admin}
-        <form  action="{$base}/agregar/cerveza/" method="GET"><input type="submit" value='Agregar Cerveza'></form>
+        <form  action="{$base}/cerveza/agregar/" method="GET"><input type="submit" value='Agregar Cerveza'></form>
     {/if}
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">
@@ -61,8 +61,8 @@
                 <div class="col-sm border border-secondary text-center">
                         <form  action="{$base}/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='Ver'></form>
                         {if $admin}
-                        <form  action="{$base}/editar/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='Editar'></form>
-                        <form  action="{$base}/eliminar/cerveza/{$cer->id_cerveza}" method="POST"><input type="submit" value='Eliminar'></form>
+                        <form  action="{$base}/cerveza/editar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Editar'></form>
+                        <form  action="{$base}/cerveza/eliminar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Eliminar'></form>
                         {/if}
                 </div>
             </div>

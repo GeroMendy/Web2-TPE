@@ -36,7 +36,7 @@ class estilos_model{
         $insert->execute(array($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max));
     }
     public function updateEstilo($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max,$id_estilo){ //NO FUNCIONA!!! . Revisar código SQL. 
-        $update = $this->db->prepare("UPDATE ".$this->tabla." SET 'nombre'=?,'color'=?,'aroma'=?,'apariencia'=?,'sabor'=?,'amargor_min'=?,'amargor_max'=?,'alcohol_min'=?,'alcohol_max'=?) WHERE id_estilo=?");
+        $update = $this->db->prepare("UPDATE ".$this->tabla." SET nombre=?, color=?, aroma=?, apariencia=?, sabor=?, amargor_min=?, amargor_max=?, alcohol_min=?, alcohol_max=? WHERE id_estilo=?");
         $update->execute(array($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max,$id_estilo));
     }
     public function deleteEstilo($id_estilo){

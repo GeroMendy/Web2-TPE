@@ -149,7 +149,7 @@
 
         public function deleteEstilo($id = null){
             if(isAdmin()){
-                $this->estilos_model->deleteEstilo($id_estilo[":ID"]);
+                $this->estilos_model->deleteEstilo($id[":ID"]);
                 $this->redirectEstilo();
             }else{
                 $this->redirectHeader();

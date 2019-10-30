@@ -10,8 +10,6 @@
     define("PROD_C" , 'producto_controller');
     $router = new Router();
 
-    $router->addRoute("debug_login","GET",USER_C,"debug_LogIn");
-
     $router->addRoute("login","GET",USER_C,"displayLogIn");
     $router->addRoute("login","POST",USER_C,"logIn");
     
@@ -21,28 +19,30 @@
     //Cervezas
     $router->addRoute("cerveza/sorted","GET",PROD_C,"getCervezasSortedByEstilo");
     $router->addRoute("cerveza","GET",PROD_C,"getCervezas");
-    $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
 
-    $router->addRoute("editar/cerveza/:ID","GET",PROD_C,"editCerveza");
-    $router->addRoute("editar/cerveza/:ID", "POST", PROD_C, "updateCerveza");//No funciona consulta SQL
+    $router->addRoute("cerveza/editar/:ID","GET",PROD_C,"editCerveza");
+    $router->addRoute("cerveza/editar/:ID", "POST", PROD_C, "updateCerveza");//No funciona consulta SQL
     
-    $router->addRoute("eliminar/cerveza/:ID","GET",PROD_C,"deleteCerveza");
+    $router->addRoute("cerveza/eliminar/:ID","GET",PROD_C,"deleteCerveza");
     
-    $router->addRoute("agregar/cerveza","GET",PROD_C,"displayAgregarCerveza");
-    $router->addRoute("agregar/cerveza","POST",PROD_C,"addCerveza");
+    $router->addRoute("cerveza/agregar","GET",PROD_C,"displayAgregarCerveza");
+    $router->addRoute("cerveza/agregar","POST",PROD_C,"addCerveza");
+
+    $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
     //Cervezas
 
     //Estilos
     $router->addRoute("estilo","GET",PROD_C,"getEstilos");
-    $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
 
-    $router->addRoute("editar/estilo/:ID","GET",PROD_C,"displayEditEstilo"); 
-    $router->addRoute("editar/estilo/:ID", "POST", PROD_C, "editEstilo");//No funciona consulta SQL
+    $router->addRoute("estilo/editar/:ID","GET",PROD_C,"displayEditEstilo"); 
+    $router->addRoute("estilo/editar/:ID", "POST", PROD_C, "editEstilo");//No funciona consulta SQL
     
-    $router->addRoute("eliminar/estilo/:ID","GET",PROD_C,"deleteEstilo");
+    $router->addRoute("estilo/eliminar/:ID","GET",PROD_C,"deleteEstilo");
 
-    $router->addRoute("agregar/estilo","GET",PROD_C,"displayAgregarEstilo");
-    $router->addRoute("agregar/estilo","POST",PROD_C,"addEstilo");
+    $router->addRoute("estilo/agregar","GET",PROD_C,"displayAgregarEstilo");
+    $router->addRoute("estilo/agregar","POST",PROD_C,"addEstilo");
+
+    $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
     //Estilos
     
     $router->setDefaultRoute(PROD_C,"index");    

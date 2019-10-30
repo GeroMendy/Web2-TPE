@@ -40,8 +40,4 @@
             $this->displayLogIn();
         }
 
-        public function debug_login(){
-            $this->logIn("debuger@code.com","a");
-        }
-
     }

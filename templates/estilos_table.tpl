@@ -9,7 +9,7 @@
 </head>
 <body>
     {if $admin}
-        <form  action="{$base}/agregar/estilo/" method="GET"><input type="submit" value='Agregar Estilo'></form>
+        <form  action="{$base}/estilo/agregar" method="GET"><input type="submit" value='Agregar Estilo'></form>
     {/if}
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">
@@ -57,8 +57,8 @@
                 <div class="col-sm border border-secondary text-center">
                         <form  action="{$base}/estilo/{$est->id_estilo}" method="GET"><input type="submit" value='Ver'></form>
                         {if $admin}
-                        <form  action="{$base}/editar/estilo/{$est->id_estilo}" method="GET"><input type="submit" value='Editar'></form>
-                        <form  action="{$base}/eliminar/estilo/{$est->id_estilo}" method="GET"><input type="submit" value='Eliminar'></form>
+                        <form  action="{$base}/estilo/editar/{$est->id_estilo}" method="GET"><input type="submit" value='Editar'></form>
+                        <form  action="{$base}/estilo/eliminar/{$est->id_estilo}" method="GET"><input type="submit" value='Eliminar'></form>
                         {/if}
                 </div>
             </div>  

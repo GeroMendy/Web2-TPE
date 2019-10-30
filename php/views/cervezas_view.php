@@ -27,6 +27,7 @@
         public function displayAgregarCerveza($estilos){
             $this->plantilla->assign('titulo','Agregar Cerveza');
             $this->plantilla->assign('estilos', $estilos);
+            $this->plantilla->assign('base', BASE_URL);
             $this->plantilla->display("templates/add_cerveza.tpl");
         }
     }
