@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <form method='POST' action='{$base}/editarE/{$estilo->id_estilo}'>
+    <form method='POST' action='{$base}/editar/estilo/{$estilo->id_estilo}'>
         <fieldset>
             <legend>Estilo ID:{$estilo->id_estilo}</legend>
             ID: <input type="text" value='{$estilo->id_estilo}' name="id_estilo" readonly></br>

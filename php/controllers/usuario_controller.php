@@ -25,6 +25,7 @@
             $user = $this->model->getUsuario($mail);
             if(!empty($user)&&md5($password)==$user->password){
                 startSession($user);
+                header('Location: '.BASE_URL);
             }
         }
         
@@ -37,6 +38,10 @@
         public function logOut(){
             finishSession();
             $this->displayLogIn();
+        }
+
+        public function debug_login(){
+            $this->logIn("debuger@code.com","a");
         }
 
     }

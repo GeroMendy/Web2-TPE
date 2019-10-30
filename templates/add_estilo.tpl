@@ -7,7 +7,7 @@
     <title>{$titulo}</title>
 </head>
 <body>
-    <form method='POST' action='agregarE'>
+    <form method='POST' action=''>
         Nombre del Estilo: <input type="text" name="nombre"></br>
         Color: <input type="text" value='' name="color"></br>
         Aroma:<input type="text" value='' name="aroma"></br>

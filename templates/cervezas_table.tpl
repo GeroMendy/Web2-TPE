@@ -9,10 +9,10 @@
 </head>
 <body>
     {if sizeof($cervezas) ne 1}
-        <form  action="{$base}/sorted" method="GET"><input type="submit" value='Ordenar por estilo'></form>
+        <form  action="{$base}/sorted/" method="GET"><input type="submit" value='Ordenar por estilo'></form>
     {/if}
     {if $admin}
-        <form  action="{$base}/agregar" method="GET"><input type="submit" value='Agregar Cerveza'></form>
+        <form  action="{$base}/agregar/cerveza/" method="GET"><input type="submit" value='Agregar Cerveza'></form>
     {/if}
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">

@@ -28,6 +28,9 @@
         public function index(){
             $this->index_view->displayIndex();
         }
+        public function redirectHeader(){
+            header('Location: '.BASE_URL);
+        }
 
         // Functions para Cerveza.
         public function getCervezasSortedByEstilo(){
@@ -44,14 +47,17 @@
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
             $this->cervezas_view->generateTable([$cerveza],isAdmin());
         }
-
+        
+        public function redirectCerveza(){
+            header('Location: '.BASE_URL."/cerveza");
+        }
         public function addCerveza(){ //REVISAR
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
                 $this->cervezas_model->addCerveza($_POST['nombre'],$_POST['imagen'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
-             $this->getCervezas();
+                $this->redirectCerveza();
            }else{
-               $this->index();
+               $this->redirectHeader();
            }
         }
 
@@ -60,16 +66,16 @@
                 $estilos = $this->estilos_model->getEstilos();
                 $this->cervezas_view->displayAgregarCerveza($estilos);
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
         public function deleteCerveza($params = null){
             if(isAdmin()){
                 $this->cervezas_model->deleteCerveza($params[":ID"]);
-                $this->getCervezas();
+                $this->redirectCerveza();
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
@@ -79,11 +85,11 @@
                 $estilos = $this->estilos_model->getEstilos();
                 $this->cervezas_view->displayEditCerveza($cerveza,$estilos);
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
-        public function updateCerveza(){
+        public function editCerveza(){
             if(isAdmin()){
                 $nombre=$_POST['nombre'];
                 $imagen=$_POST['imagen'];
@@ -92,9 +98,9 @@
                 $alcohol=$_POST['alcohol'];
                 $id_cerveza=$_POST['id_cerveza'];
                 $this->cervezas_model->updateCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza);
-                $this->getCervezas();
+                $this->redirectCerveza();
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
@@ -109,6 +115,10 @@
             $est=$this->estilos_model->getEstilo($id_estilo[":ID"]);
             $this->estilos_view->generateTable([$est],isAdmin());
         }
+        
+        public function redirectEstilo(){
+            header('Location: '.BASE_URL."/estilo");
+        }
 
         public function addEstilo(){
             if(isAdmin()){
@@ -122,9 +132,10 @@
                 $alcohol_min=$_POST['almin'];
                 $alcohol_max=$_POST['almax'];
                 $this->estilos_model->addEstilo($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max);
-                $this->getEstilos();
+                
+                $this->redirectEstilo();
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
@@ -132,30 +143,45 @@
             if(isAdmin()){
                 $this->estilos_view->displayAgregar();
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
         public function deleteEstilo($id = null){
             if(isAdmin()){
                 $this->estilos_model->deleteEstilo($id_estilo[":ID"]);
-                $this->getEstilos();
+                $this->redirectEstilo();
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
 
-        public function editEstilo($id = null){
+        public function displayEditEstilo($id = null){
             if(isAdmin()){
                 $estilo = $this->estilos_model->getEstilo($id[":ID"]);
                 $this->estilos_view->editEstilo($estilo);
             }else{
-                $this->index();
+                $this->redirectHeader();
             }
         }
-
-        public function updateEstilo(){
-            var_dump($_POST);
+        public function editEstilo(){
+            if(isAdmin()){
+                $id=$_POST['id_estilo'];
+                $nombre=$_POST['nombre'];
+                $color=$_POST['color'];
+                $aroma=$_POST['aroma'];
+                $apariencia=$_POST['apariencia'];
+                $sabor=$_POST['sabor'];
+                $amargor_min=$_POST['amargor_min'];
+                $amargor_max=$_POST['amargor_max'];
+                $alcohol_min=$_POST['alcohol_min'];
+                $alcohol_max=$_POST['alcohol_max'];
+                $this->estilos_model->updateEstilo($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max,$id);
+                
+                $this->redirectEstilo();
+            }else{
+                $this->redirectHeader();
+            }
         }
 
     }

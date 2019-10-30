@@ -7,7 +7,7 @@
     <title>{$titulo}</title>
 </head>
 <body>
-    <form method='POST' action='agregar'>
+    <form method='POST' action=''>
         Nombre de Cerveza: <input type="text" name="nombre"></br>
         Nombre Archivo imagen: <input type="text" value='' name="imagen"></br>
         Estilo: <select name="estilo">

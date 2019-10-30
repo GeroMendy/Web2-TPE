@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <form method='POST' action='{$base}/editar/{$cerveza->id_cerveza}'>
+    <form method='POST' action='{$base}/editar/cerveza({$cerveza->id_cerveza}'>
         <fieldset>
             <legend>Cerveza ID:{$cerveza->id_cerveza}</legend>
             ID: <input type="text" value='{$cerveza->id_cerveza}' name="id_cerveza" readonly></br>

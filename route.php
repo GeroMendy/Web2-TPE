@@ -10,6 +10,8 @@
     define("PROD_C" , 'producto_controller');
     $router = new Router();
 
+    $router->addRoute("debug_login","GET",USER_C,"debug_LogIn");
+
     $router->addRoute("login","GET",USER_C,"displayLogIn");
     $router->addRoute("login","POST",USER_C,"logIn");
     
@@ -34,8 +36,8 @@
     $router->addRoute("estilo","GET",PROD_C,"getEstilos");
     $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
 
-    $router->addRoute("editar/estilo/:ID","GET",PROD_C,"editEstilo"); 
-    $router->addRoute("editar/estilo/:ID", "POST", PROD_C, "updateEstilo");//No funciona consulta SQL
+    $router->addRoute("editar/estilo/:ID","GET",PROD_C,"displayEditEstilo"); 
+    $router->addRoute("editar/estilo/:ID", "POST", PROD_C, "editEstilo");//No funciona consulta SQL
     
     $router->addRoute("eliminar/estilo/:ID","GET",PROD_C,"deleteEstilo");
 
