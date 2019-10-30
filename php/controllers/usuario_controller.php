@@ -2,7 +2,7 @@
 
     require_once "php/models/usuarios_model.php";
     require_once "php/controllers/session_controller.php";
-    //require_once "./views/usuarios_view.php";
+    require_once "php/views/usuarios_view.php";
 
     class usuario_controller{
 

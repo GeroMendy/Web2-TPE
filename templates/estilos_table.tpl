@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+    {if $admin}
+        <form  action="{$base}/agregarE" method="GET"><input type="submit" value='Agregar Estilo'></form>
+    {/if}
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">
             <div class="col-sm border border-secondary">
@@ -40,16 +43,26 @@
             <div class="col-sm border border-secondary">
                 Alcohol Max %           
             </div>
+            <div class="col-sm border border-secondary">
+                Acciones           
+            </div>
         </div>
         {foreach from=$estilos item=est}
            <div class="row">
                 {foreach from=$est item=carac}
-                <div class="col-sm border border-secondary text-center">
+                    <div class="col-sm border border-secondary text-center">
                         {$carac}
-                </div>
+                    </div>
                 {/foreach}
+                <div class="col-sm border border-secondary text-center">
+                        <form  action="{$base}/estilo/{$est->id_estilo}" method="GET"><input type="submit" value='Ver'></form>
+                        {if $admin}
+                        <form  action="{$base}/editarE/{$est->id_estilo}" method="GET"><input type="submit" value='Editar'></form>
+                        <form  action="{$base}/eliminarE/{$est->id_estilo}" method="GET"><input type="submit" value='Eliminar'></form>
+                        {/if}
+                </div>
             </div>  
-            {/foreach}
+        {/foreach}
     </div> 
 </body>
 </html>
