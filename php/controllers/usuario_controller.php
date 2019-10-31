@@ -29,8 +29,9 @@
             if(!empty($user)&&md5($password)==$user->password){
                 startSession($user);
                 header('Location: '.BASE_URL);
+            }else{
+                $this->view->displayErrorLogin();
             }
-            var_dump($user);
         }
         
         public function register(){

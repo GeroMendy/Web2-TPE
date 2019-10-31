@@ -22,8 +22,8 @@
     $router->addRoute("cerveza/sorted","GET",PROD_C,"getCervezasSortedByEstilo");
     $router->addRoute("cerveza","GET",PROD_C,"getCervezas");
 
-    $router->addRoute("cerveza/editar/:ID","GET",PROD_C,"editCerveza");
-    $router->addRoute("cerveza/editar/:ID", "POST", PROD_C, "updateCerveza");//No funciona consulta SQL
+    $router->addRoute("cerveza/editar/:ID","GET",PROD_C,"displayEditCerveza");
+    $router->addRoute("cerveza/editar/:ID", "POST", PROD_C, "editCerveza");
     
     $router->addRoute("cerveza/eliminar/:ID","GET",PROD_C,"deleteCerveza");
     
@@ -37,7 +37,7 @@
     $router->addRoute("estilo","GET",PROD_C,"getEstilos");
 
     $router->addRoute("estilo/editar/:ID","GET",PROD_C,"displayEditEstilo"); 
-    $router->addRoute("estilo/editar/:ID", "POST", PROD_C, "editEstilo");//No funciona consulta SQL
+    $router->addRoute("estilo/editar/:ID", "POST", PROD_C, "editEstilo");
     
     $router->addRoute("estilo/eliminar/:ID","GET",PROD_C,"deleteEstilo");
 
