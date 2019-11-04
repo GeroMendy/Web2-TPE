@@ -19,23 +19,17 @@
                 Email Usuario: <input type="text" name="email">   Contraseña: <input type="password" name="password"></br>
                 <input type="submit" value='Login'>        
             </form>
-            <form  action="{$base}/register" method="GET">
-                <input type="submit" value='Agregar usuario'>        
-            </form>
+            <a href="{$base}/register">Agregar usuario</a>        
      {/if}
     </div>
 
     <div class="container justify-content-center text-center">
     <h1>Página de cerveza</h1></br></br>
-        <form  action="{$base}/estilo/" method="GET">
-            <h2>Ver Estilos</h2></br>
-            <input type="image" src="img/estilos.jpg" alt="Submit Form" width=500></br></br>
-        </form>
-        
-        <form  action="{$base}/cerveza/" method="GET">
+        <a href="{$base}/estilo/"><h2>Ver Estilos</h2></br>
+            <img src="img/estilos.jpg" alt='Ver Estilos' width=600></a>
+        <a href="{$base}/cerveza/">
             <h2>Ver Cervezas</h2></br>
-            <input type="image" src="img/cervezas.jpg" alt="Submit Form" width=500></br>
-        </form>
+            <img src="img/cervezas.jpg" alt='Ver cervezas' width=600></a>
     </div>
 </body>
 </html>

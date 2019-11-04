@@ -9,9 +9,9 @@
 </head>
 <body>
     {if $admin}
-        <form  action="{$base}/estilo/agregar" method="GET"><input type="submit" value='Agregar Estilo'></form>
+        <a href='{$base}/estilo/agregar'>Agregar Estilo</a></br>
     {/if}
-     <form  action="{$base}" method="GET"><input type="submit" value='HOME'></form>
+     <a href='{$base}'>HOME</a></br>
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">
             <div class="col-sm border border-secondary">
@@ -56,10 +56,10 @@
                     </div>
                 {/foreach}
                 <div class="col-sm border border-secondary text-center">
-                        <form  action="{$base}/estilo/{$est->id_estilo}" method="GET"><input type="submit" value='Ver'></form>
+                        <a href ="{$base}/estilo/{$cer->id_cerveza}">VER</a></br>
                         {if $admin}
-                        <form  action="{$base}/estilo/editar/{$est->id_estilo}" method="GET"><input type="submit" value='Editar'></form>
-                        <form  action="{$base}/estilo/eliminar/{$est->id_estilo}" method="GET"><input type="submit" value='Eliminar'></form>
+                        <a href="{$base}/estilo/editar/{$cer->id_cerveza}">EDITAR</a></br>
+                        <a href="{$base}/estilo/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
                         {/if}
                 </div>
             </div>  

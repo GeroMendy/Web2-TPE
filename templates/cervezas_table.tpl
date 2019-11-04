@@ -9,12 +9,12 @@
 </head>
 <body>
     {if sizeof($cervezas) ne 1}
-        <form  action="{$base}/cerveza/sorted/" method="GET"><input type="submit" value='Ordenar por estilo'></form>
+        <a href="{$base}/cerveza/sorted/">Ordenar por Estilo</a></br>
     {/if}
     {if $admin}
-        <form  action="{$base}/cerveza/agregar/" method="GET"><input type="submit" value='Agregar Cerveza'></form>
+        <a href='{$base}/cerveza/agregar'>Agregar Cerveza</a></br>
     {/if}
-    <form  action="{$base}" method="GET"><input type="submit" value='HOME'></form>
+     <a href='{$base}'>HOME</a>
     <div class="container-fluid">
         <div class="row border border-secondary bg-warning text-dark text-center">
             <div class="col-sm border border-secondary">
@@ -60,10 +60,10 @@
                       {$cer->alcohol}  
                 </div>
                 <div class="col-sm border border-secondary text-center">
-                        <form  action="{$base}/cerveza/{$cer->id_cerveza}" method="GET"><input type="submit" value='Ver'></form>
+                        <a href ="{$base}/cerveza/{$cer->id_cerveza}">VER</a></br>
                         {if $admin}
-                        <form  action="{$base}/cerveza/editar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Editar'></form>
-                        <form  action="{$base}/cerveza/eliminar/{$cer->id_cerveza}" method="GET"><input type="submit" value='Eliminar'></form>
+                        <a href="{$base}/cerveza/editar/{$cer->id_cerveza}">EDITAR</a></br>
+                        <a href="{$base}/cerveza/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
                         {/if}
                 </div>
             </div>

@@ -45,13 +45,13 @@
 
         public function getCerveza($id_cerveza){
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->generateTable([$cerveza],isAdmin());
+            $this->cervezas_view->generateTable([$cerveza],isAdmin());//Mostrarlo en otro template
         }
         
         public function redirectCerveza(){
             header('Location: '.BASE_URL."/cerveza");
         }
-        public function addCerveza(){ //REVISAR
+        public function addCerveza(){
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
                 $this->cervezas_model->addCerveza($_POST['nombre'],$_POST['imagen'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
