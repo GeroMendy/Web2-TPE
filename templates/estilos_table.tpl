@@ -56,10 +56,10 @@
                     </div>
                 {/foreach}
                 <div class="col-sm border border-secondary text-center">
-                        <a href ="{$base}/estilo/{$cer->id_cerveza}">VER</a></br>
+                        <a href ="{$base}/estilo/{$est->id_estilo}">VER</a></br>
                         {if $admin}
-                        <a href="{$base}/estilo/editar/{$cer->id_cerveza}">EDITAR</a></br>
-                        <a href="{$base}/estilo/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
+                        <a href="{$base}/estilo/editar/{$est->id_estilo}">EDITAR</a></br>
+                        <a href="{$base}/estilo/eliminar/{$est->id_estilo}">ELIMINAR</a></br>
                         {/if}
                 </div>
             </div>  
