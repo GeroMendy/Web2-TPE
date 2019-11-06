@@ -20,7 +20,9 @@
 
     //Cervezas
     $router->addRoute("cerveza/sorted","GET",PROD_C,"getCervezasSortedByEstilo");
+    $router->addRoute("cerveza/filter","GET",PROD_C,"getCervezasByEstilo");
     $router->addRoute("cerveza","GET",PROD_C,"getCervezas");
+    
 
     $router->addRoute("cerveza/editar/:ID","GET",PROD_C,"displayEditCerveza");
     $router->addRoute("cerveza/editar/:ID", "POST", PROD_C, "editCerveza");
@@ -31,6 +33,7 @@
     $router->addRoute("cerveza/agregar","POST",PROD_C,"addCerveza");
 
     $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
+
     //Cervezas
 
     //Estilos

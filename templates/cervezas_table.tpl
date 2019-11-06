@@ -11,6 +11,16 @@
     {if sizeof($cervezas) ne 1}
         <a href="{$base}/cerveza/sorted/">Ordenar por Estilo</a></br>
     {/if}
+    <form method='GET' action='{$base}/cerveza/filter/'>
+        <input type="submit" value='Filtrar por estilo >'>
+        <select name="estilo">
+            {foreach from=$estilos item=est}
+              <option value="{$est->nombre}">{$est->nombre}</option>
+            {/foreach}
+        </select>
+        <a href='{$base}/cerveza'>Quitar Filtro</a>
+    </form>
+
     {if $admin}
         <a href='{$base}/cerveza/agregar'>Agregar Cerveza</a></br>
     {/if}

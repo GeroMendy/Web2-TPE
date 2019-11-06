@@ -35,19 +35,28 @@
         // Functions para Cerveza.
         public function getCervezasSortedByEstilo(){
             $list_cervezas = $this->cervezas_model->getCervezasSortedByEstilo();
-            $this->cervezas_view->generateTable($list_cervezas,isAdmin());
+            $estilos = $this->estilos_model->getEstilos();
+            $this->cervezas_view->generateTable($list_cervezas,isAdmin(),$estilos);
         }
 
         public function getCervezas(){
             $list_cervezas = $this->cervezas_model->getCervezas();
-            $this->cervezas_view->generateTable($list_cervezas,isAdmin());
+            $estilos = $this->estilos_model->getEstilos();
+            $this->cervezas_view->generateTable($list_cervezas,isAdmin(),$estilos);
         }
 
         public function getCerveza($id_cerveza){
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->generateTable([$cerveza],isAdmin());//Mostrarlo en otro template
+            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),isLogged());
         }
         
+        public function getCervezasByEstilo(){
+            $id_estilo= $this->estilos_model->getIdEstilo($_GET['estilo']);
+            $list_cervezas = $this->cervezas_model->getCervezasByEstilo($id_estilo);
+            $estilos = $this->estilos_model->getEstilos();
+            $this->cervezas_view->generateTable($list_cervezas,isAdmin(),$estilos);
+        }
+
         public function redirectCerveza(){
             header('Location: '.BASE_URL."/cerveza");
         }
