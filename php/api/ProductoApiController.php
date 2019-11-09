@@ -19,19 +19,4 @@
                 $this->view->response("No existe cerveza con id {$id}", 404);
             }  
           }
-
-          public function getTarea($params = null) {
-            // obtiene el parametro de la ruta
-            $id = $params[':ID'];
-            
-            $tarea = $this->model->GetTarea($id);
-            
-            if ($tarea) {
-                $this->view->response($tarea, 200);   
-            } else {
-                $this->view->response("No existe la tarea con el id={$id}", 404);
-            }
-        }
-    
-
     }

@@ -34,14 +34,29 @@ class cervezas_model{
         $cervezas = $select->fetchAll(PDO::FETCH_OBJ);
         return $cervezas;
     }
-    public function addCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol){
+
+    public function addCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol){
+        $pathImg = null;
+        if ($imagen)
+            $pathImg = $this->uploadImage($imagen);
         $insert = $this->db->prepare("INSERT INTO ".$this->tabla." (nombre,imagen,id_estilo,amargor,alcohol) VALUES(?,?,?,?,?)");
-        $insert->execute(array($nombre,$imagen,$id_estilo,$amargor,$alcohol));
+        $insert->execute(array($nombre,$pathImg,$id_estilo,$amargor,$alcohol));
     }
-    public function updateCerveza($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza){ //Revisar código SQL. NO FUNCIONA
+
+    private function uploadImage($imagen){
+        $target ='img/' . uniqid() . '.jpg';
+        move_uploaded_file($imagen, $target);
+        return $target;
+    }
+
+    public function updateCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$id_cerveza){ //Revisar código SQL. NO FUNCIONA
+        $pathImg = null;
+        if ($imagen)
+            $pathImg = $this->uploadImage($imagen);
         $update = $this->db->prepare("UPDATE ".$this->tabla." SET nombre=?, imagen=?, id_estilo=?, amargor=?, alcohol=? WHERE id_cerveza=?");
-        $update->execute(array($nombre,$imagen,$id_estilo,$amargor,$alcohol,$id_cerveza));
+        $update->execute(array($nombre,$pathImg,$id_estilo,$amargor,$alcohol,$id_cerveza));
     }
+
     public function deleteCerveza($id_cerveza){
         $delete = $this->db->prepare("DELETE FROM ".$this->tabla." WHERE id_cerveza=?");
         $delete->execute(array($id_cerveza));

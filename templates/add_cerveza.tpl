@@ -7,9 +7,9 @@
     <title>{$titulo}</title>
 </head>
 <body>
-    <form method='POST' action='{$base}/cerveza/agregar'>
+    <form method='POST' action='{$base}/cerveza/agregar' enctype="multipart/form-data">
         Nombre de Cerveza: <input type="text" name="nombre"></br>
-        Nombre Archivo imagen: <input type="text" value='' name="imagen"></br>
+        Imagen: <input type="file" name="input_img" id="imageToUpload"></br>
         Estilo: <select name="estilo">
             {foreach from=$estilos item=est}
                 <option value="{$est->nombre}">{$est->nombre}</option>
