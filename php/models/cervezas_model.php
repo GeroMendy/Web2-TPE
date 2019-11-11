@@ -35,7 +35,7 @@ class cervezas_model{
         return $cervezas;
     }
 
-    public function addCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$imgPreload){
+    public function addCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$imgPreload){//Falta booleano para saber si no se quiere imagen
         if ($imagen){
             $img = $this->uploadImage($imagen);
         }else{

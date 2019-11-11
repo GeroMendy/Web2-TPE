@@ -15,6 +15,7 @@
                                 <option value={$img}>{$img}</option>
                             {/foreach}
                           </select></br>
+        <input type="checkbox" name="sinImagen" id="noimage"><label for="noimage"> Sin Imagen </label></br>
         Estilo: <select name="estilo">
             {foreach from=$estilos item=est}
                 <option value="{$est->nombre}">{$est->nombre}</option>

@@ -7,7 +7,8 @@
     <title>{$titulo}</title>
 </head>
 <body>
-    <p>El Usuario y la contrase&ntildea no coinciden</p>
+    <p>El Usuario y la contraseña no coinciden o el usuario no existe</p>
+
     <form  action="{$base}" method="GET"><input type="submit" value='HOME'></form>
 </body>
 </html>

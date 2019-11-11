@@ -27,7 +27,7 @@
         }
 
         public function index(){
-            $this->index_view->displayIndex(isLogged(),isAdmin());
+            $this->index_view->displayIndex(isLogged(),isAdmin(),getUserSessionNombre());
         }
         
         public function redirectHeader(){
@@ -65,11 +65,16 @@
         public function addCerveza(){
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
+                if ($_POST['sinImagen'])
+                    $img_preloaded="";
+                else
+                    $img_preloaded=$_POST['imagen-preloaded'];
                 if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png"){
-                    $this->cervezas_model->addCerveza($_POST['nombre'],$_FILES['input_img']['tmp_name'],$id_estilo,$_POST['amargor'],$_POST['alcohol'],$_POST['imagen-preloaded']);
+                    $img=$_FILES['input_img']['tmp_name'];
                 }else{
-                    $this->cervezas_model->addCerveza($_POST['nombre'],null,$id_estilo,$_POST['amargor'],$_POST['alcohol'],$_POST['imagen-preloaded']);
+                    $img=null;
                 }
+                $this->cervezas_model->addCerveza($_POST['nombre'],$img,$id_estilo,$_POST['amargor'],$_POST['alcohol'],$img_preloaded);
                 $this->redirectCerveza();
            }else{
                $this->redirectHeader();
@@ -112,11 +117,15 @@
                 $amargor=$_POST['amargor'];
                 $alcohol=$_POST['alcohol'];
                 $id_cerveza=$_POST['id_cerveza'];
-                if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png"){
-                    $this->cervezas_model->updateCerveza($nombre,$_FILES['input_img']['tmp_name'],$id_estilo,$amargor,$alcohol,$id_cerveza,$_POST['imagen-preloaded']);
-                }else{
-                    $this->cervezas_model->updateCerveza($nombre,null,$id_estilo,$amargor,$alcohol,$id_cerveza,$_POST['imagen-preloaded']);
-                }
+                if ($_POST['sinImagen'])
+                    $img_preloaded="";
+                else
+                    $img_preloaded=$_POST['imagen-preloaded'];
+                if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png")
+                    $img=$_FILES['input_img']['tmp_name'];
+                else
+                    $img=null;
+                $this->cervezas_model->updateCerveza($nombre,$img,$id_estilo,$amargor,$alcohol,$id_cerveza,$img_preloaded);
                 $this->redirectCerveza();
             }else{
                 $this->redirectHeader();
@@ -195,8 +204,7 @@
                 $amargor_max=$_POST['amargor_max'];
                 $alcohol_min=$_POST['alcohol_min'];
                 $alcohol_max=$_POST['alcohol_max'];
-                $this->estilos_model->updateEstilo($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max,$id);
-                
+                $this->estilos_model->updateEstilo($nombre,$color,$aroma,$apariencia,$sabor,$amargor_min,$amargor_max,$alcohol_min,$alcohol_max,$id);    
                 $this->redirectEstilo();
             }else{
                 $this->redirectHeader();

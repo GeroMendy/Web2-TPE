@@ -11,7 +11,9 @@
         <a href='{$base}/cerveza'>Lista Cervezas</a>
         <fieldset>
             <legend><h1>{$cerveza->nombre}</h1></legend>
-            <img src='{$base}/img/cervezas/{$cerveza->imagen}' width="300">
+            {if $cerveza->imagen neq ""}
+                <img src='{$base}/img/cervezas/{$cerveza->imagen}' width="300">
+            {/if}
             <h2>Estilo: {$cerveza->Estilo}</h2>
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>

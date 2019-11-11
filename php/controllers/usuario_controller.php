@@ -21,6 +21,10 @@
             $this->view->displayRegister();
         }
 
+        public function displayIndex(){
+            $this->indexview->displayIndex(isLogged(),isAdmin(),getUserSessionNombre());
+        }
+
         public function logIn(){
             $mail=$_POST['email'];
             $password=$_POST['password'];
@@ -39,12 +43,11 @@
             $mail=$_POST['email'];
             $this->model->registrarUsuario($nombre,$mail,$pass);
             $this->logIn();
-            $this->indexview->displayIndex(isLogged());
         }
 
         public function logOut(){
             finishSession();
-            $this->indexview->displayIndex(isLogged(),isAdmin());
+            $this->displayIndex();
         }
 
         public function displayUserAdmin(){
@@ -52,7 +55,7 @@
                 $usuarios=$this->model->getUsuarios();
                 $this->view->administrarUsuarios($usuarios);
             }
-            else $this->indexview->displayIndex(isLogged(),isAdmin());
+            else $this->displayIndex();
         }
 
         public function deleteUser($params = null){

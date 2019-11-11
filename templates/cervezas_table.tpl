@@ -58,7 +58,9 @@
                       {$cer->nombre}  
                 </div>
                 <div class="col-sm border border-secondary text-center">
-                      <img src='{$base}/img/cervezas/{$cer->imagen}' width="42">
+                      {if $cer->imagen neq ""}
+                        <img src='{$base}/img/cervezas/{$cer->imagen}' width="42">
+                      {/if}
                 </div>
                 <div class="col-sm border border-secondary text-center">
                       {$cer->Estilo}  
