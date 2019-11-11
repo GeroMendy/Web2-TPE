@@ -13,7 +13,7 @@
             <legend>Cerveza ID:{$cerveza->id_cerveza}</legend>
             ID: <input type="text" value='{$cerveza->id_cerveza}' name="id_cerveza" readonly></br>
             Nombre: <input type="text" value='{$cerveza->nombre}' name="nombre"></br>
-            Imagen: <input type="file" name="input_img" id="imageToUpload">
+            Imagen: <input type="file" name="input_img" id="imageToUpload"></br>
             Imágenes subidas: <select name="imagen-preloaded">
                                 {foreach from=$imagenes item=img}
                                     <option value={$img}>{$img}</option>
