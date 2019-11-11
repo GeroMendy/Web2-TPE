@@ -52,7 +52,7 @@ class cervezas_model{
         return $nombre;
     }
 
-    public function updateCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$id_cerveza,$imgPreload){ //Revisar código SQL. NO FUNCIONA
+    public function updateCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$id_cerveza,$imgPreload){
         $pathImg = null;
         if ($imagen){
             $img = $this->uploadImage($imagen);

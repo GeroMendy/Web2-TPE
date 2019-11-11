@@ -25,9 +25,11 @@
 
             $this->index_view=new index_view();
         }
+
         public function index(){
-            $this->index_view->displayIndex(isLogged());
+            $this->index_view->displayIndex(isLogged(),isAdmin());
         }
+        
         public function redirectHeader(){
             header('Location: '.BASE_URL);
         }

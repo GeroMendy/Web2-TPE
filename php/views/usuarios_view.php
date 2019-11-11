@@ -18,5 +18,11 @@
             $this->plantilla->display("templates/error_login.tpl");            
         }
         
+        public function administrarUsuarios($usuarios){
+            $this->plantilla->assign('titulo','Administrar usuarios');
+            $this->plantilla->assign('usuarios',$usuarios);
+            $this->plantilla->assign('base',BASE_URL);
+            $this->plantilla->display("templates/userAdmin.tpl");            
+        }
 
     }

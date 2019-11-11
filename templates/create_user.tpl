@@ -11,7 +11,6 @@
         Nombre de Usuario: <input type="text" name="nombre"></br>
         Contraseña: <input type="password" name="password"></br>
         Email: <input type="text" name="email"></br>
-        ¿Es administrador?<input type="checkbox" name="admin" value="Admin"</br>
         <input type="submit" value='Agregar usuario'>
     </form>
 </body>

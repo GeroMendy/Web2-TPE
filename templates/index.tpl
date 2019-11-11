@@ -10,17 +10,17 @@
 <body>
     <div class="container justify-content-center text-center">
         {if $logged}
-            <form  action="{$base}/logout" method="GET">
-                <input type="submit" value='Logout'>        
-            </form>
-   
+            <a href="{$base}/logout">Logout</a></br>
         {else}
             <form  action="{$base}/login" method="POST">
                 Email Usuario: <input type="text" name="email">   Contraseña: <input type="password" name="password"></br>
-                <input type="submit" value='Login'>        
-            </form>
-            <a href="{$base}/register">Agregar usuario</a>        
-     {/if}
+                <input type="submit" value='Login'>       
+            </form></br>
+            <a href="{$base}/register">Agregar usuario</a></br>
+        {/if}
+        {if $admin}
+            <a href="{$base}/userAdmin">Administrar usuarios</a>
+        {/if}
     </div>
 
     <div class="container justify-content-center text-center">

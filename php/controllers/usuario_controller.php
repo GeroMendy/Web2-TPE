@@ -15,7 +15,6 @@
             $this->model = new usuarios_model();
             $this->view = new usuarios_view();
             $this->indexview = new index_view();
-
         }
 
         public function displayRegister(){
@@ -38,17 +37,41 @@
             $nombre=$_POST['nombre'];
             $pass=$_POST['password'];
             $mail=$_POST['email'];
-            if (isset($_POST['admin'])){
-                $admin=TRUE;
-            }else{
-                $admin=FALSE;
-            }
-            $this->model->registrarUsuario($nombre,$mail,$pass,$admin);
+            $this->model->registrarUsuario($nombre,$mail,$pass);
+            $this->logIn();
             $this->indexview->displayIndex(isLogged());
         }
+
         public function logOut(){
             finishSession();
-            $this->indexview->displayIndex(isLogged());
+            $this->indexview->displayIndex(isLogged(),isAdmin());
         }
+
+        public function displayUserAdmin(){
+            if (isAdmin()){
+                $usuarios=$this->model->getUsuarios();
+                $this->view->administrarUsuarios($usuarios);
+            }
+            else $this->indexview->displayIndex(isLogged(),isAdmin());
+        }
+
+        public function deleteUser($params = null){
+            if(isAdmin()){
+                $this->model->deleteUser($params[":ID"]);
+                $this->displayUserAdmin();
+            }else{
+               header('Location: '.BASE_URL);;
+            }
+        }
+
+        public function toggleAdmin($params = null){
+            if(isAdmin()){
+                $this->model->toggleAdmin($params[":ID"]);
+                $this->displayUserAdmin();
+            }else{
+               header('Location: '.BASE_URL);;
+            }
+        }
+
 
     }
