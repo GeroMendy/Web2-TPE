@@ -2,3 +2,4 @@
 templates_c/
 #Ignora la carpeta generada por XDebug:
 .vscode/
+img/cervezas/*.jpg
