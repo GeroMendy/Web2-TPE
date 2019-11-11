@@ -22,6 +22,8 @@
             $this->plantilla->assign('base',BASE_URL);
             $this->plantilla->assign('cerveza', $cerveza);
             $this->plantilla->assign('estilos', $estilos);
+            $archivos= array_diff(scandir("./img/cervezas/"), array('..', '.'));
+            $this->plantilla->assign('imagenes', $archivos);
             $this->plantilla->display("templates/edit_cerveza.tpl");
         }
 
@@ -37,6 +39,8 @@
             $this->plantilla->assign('titulo','Agregar Cerveza');
             $this->plantilla->assign('estilos', $estilos);
             $this->plantilla->assign('base', BASE_URL);
+            $archivos= array_diff(scandir("./img/cervezas/"), array('..', '.'));
+            $this->plantilla->assign('imagenes', $archivos);
             $this->plantilla->display("templates/add_cerveza.tpl");
         }
     }

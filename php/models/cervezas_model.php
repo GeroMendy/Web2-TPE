@@ -35,26 +35,32 @@ class cervezas_model{
         return $cervezas;
     }
 
-    public function addCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol){
-        $pathImg = null;
-        if ($imagen)
-            $pathImg = $this->uploadImage($imagen);
+    public function addCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$imgPreload){
+        if ($imagen){
+            $img = $this->uploadImage($imagen);
+        }else{
+            $img = $imgPreload;
+        }
         $insert = $this->db->prepare("INSERT INTO ".$this->tabla." (nombre,imagen,id_estilo,amargor,alcohol) VALUES(?,?,?,?,?)");
-        $insert->execute(array($nombre,$pathImg,$id_estilo,$amargor,$alcohol));
+        $insert->execute(array($nombre,$img,$id_estilo,$amargor,$alcohol));
     }
 
     private function uploadImage($imagen){
-        $target ='img/' . uniqid() . '.jpg';
+        $nombre=uniqid() . '.jpg';
+        $target ='img/cervezas/' . $nombre;
         move_uploaded_file($imagen, $target);
-        return $target;
+        return $nombre;
     }
 
-    public function updateCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$id_cerveza){ //Revisar código SQL. NO FUNCIONA
+    public function updateCerveza($nombre,$imagen=null,$id_estilo,$amargor,$alcohol,$id_cerveza,$imgPreload){ //Revisar código SQL. NO FUNCIONA
         $pathImg = null;
-        if ($imagen)
-            $pathImg = $this->uploadImage($imagen);
+        if ($imagen){
+            $img = $this->uploadImage($imagen);
+        }else{
+            $img = $imgPreload;
+        }
         $update = $this->db->prepare("UPDATE ".$this->tabla." SET nombre=?, imagen=?, id_estilo=?, amargor=?, alcohol=? WHERE id_cerveza=?");
-        $update->execute(array($nombre,$pathImg,$id_estilo,$amargor,$alcohol,$id_cerveza));
+        $update->execute(array($nombre,$img,$id_estilo,$amargor,$alcohol,$id_cerveza));
     }
 
     public function deleteCerveza($id_cerveza){

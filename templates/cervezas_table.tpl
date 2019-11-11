@@ -58,7 +58,7 @@
                       {$cer->nombre}  
                 </div>
                 <div class="col-sm border border-secondary text-center">
-                      <img src='{$base}/{$cer->imagen}' width="42">
+                      <img src='{$base}/img/cervezas/{$cer->imagen}' width="42">
                 </div>
                 <div class="col-sm border border-secondary text-center">
                       {$cer->Estilo}  

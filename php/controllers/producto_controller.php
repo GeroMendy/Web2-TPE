@@ -64,9 +64,9 @@
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
                 if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png"){
-                    $this->cervezas_model->addCerveza($_POST['nombre'],$_FILES['input_img']['tmp_name'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
+                    $this->cervezas_model->addCerveza($_POST['nombre'],$_FILES['input_img']['tmp_name'],$id_estilo,$_POST['amargor'],$_POST['alcohol'],$_POST['imagen-preloaded']);
                 }else{
-                    $this->cervezas_model->addCerveza($_POST['nombre'],null,$id_estilo,$_POST['amargor'],$_POST['alcohol']);
+                    $this->cervezas_model->addCerveza($_POST['nombre'],null,$id_estilo,$_POST['amargor'],$_POST['alcohol'],$_POST['imagen-preloaded']);
                 }
                 $this->redirectCerveza();
            }else{
@@ -111,9 +111,9 @@
                 $alcohol=$_POST['alcohol'];
                 $id_cerveza=$_POST['id_cerveza'];
                 if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png"){
-                    $this->cervezas_model->updateCerveza($nombre,$_FILES['input_img']['tmp_name'],$id_estilo,$amargor,$alcohol,$id_cerveza);
+                    $this->cervezas_model->updateCerveza($nombre,$_FILES['input_img']['tmp_name'],$id_estilo,$amargor,$alcohol,$id_cerveza,$_POST['imagen-preloaded']);
                 }else{
-                    $this->cervezas_model->updateCerveza($nombre,null,$id_estilo,$amargor,$alcohol,$id_cerveza);
+                    $this->cervezas_model->updateCerveza($nombre,null,$id_estilo,$amargor,$alcohol,$id_cerveza,$_POST['imagen-preloaded']);
                 }
                 $this->redirectCerveza();
             }else{

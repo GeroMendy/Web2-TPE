@@ -10,6 +10,11 @@
     <form method='POST' action='{$base}/cerveza/agregar' enctype="multipart/form-data">
         Nombre de Cerveza: <input type="text" name="nombre"></br>
         Imagen: <input type="file" name="input_img" id="imageToUpload"></br>
+        Imágenes subidas: <select name="imagen-preloaded">
+                            {foreach from=$imagenes item=img}
+                                <option value={$img}>{$img}</option>
+                            {/foreach}
+                          </select></br>
         Estilo: <select name="estilo">
             {foreach from=$estilos item=est}
                 <option value="{$est->nombre}">{$est->nombre}</option>
