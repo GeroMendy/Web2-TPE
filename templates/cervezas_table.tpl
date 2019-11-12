@@ -34,9 +34,6 @@
                 Nombre
             </div>
             <div class="col-sm border border-secondary">
-                Imagen
-            </div>
-            <div class="col-sm border border-secondary">
                 Estilo
             </div>
             <div class="col-sm border border-secondary">
@@ -56,11 +53,6 @@
                 </div>
                 <div class="col-sm border border-secondary text-center">
                       {$cer->nombre}  
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                      {if $cer->imagen neq ""}
-                        <img src='{$base}/img/cervezas/{$cer->imagen}' width="42">
-                      {/if}
                 </div>
                 <div class="col-sm border border-secondary text-center">
                       {$cer->Estilo}  

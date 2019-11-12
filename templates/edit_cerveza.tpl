@@ -13,13 +13,6 @@
             <legend>Cerveza ID:{$cerveza->id_cerveza}</legend>
             ID: <input type="text" value='{$cerveza->id_cerveza}' name="id_cerveza" readonly></br>
             Nombre: <input type="text" value='{$cerveza->nombre}' name="nombre"></br>
-            Imagen: <input type="file" name="input_img" id="imageToUpload"></br>
-            Imágenes subidas: <select name="imagen-preloaded">
-                                {foreach from=$imagenes item=img}
-                                    <option value={$img}>{$img}</option>
-                                {/foreach}
-                              </select></br>
-            <input type="checkbox" name="sinImagen" id="noimage"><label for="noimage"> Sin Imagen </label></br>
             Estilo: <select name="estilo">
                 {foreach from=$estilos item=est}
                     <option value="{$est->nombre}">{$est->nombre}</option>
@@ -27,7 +20,8 @@
             </select></br>
             Amargor: <input type="number" value='{$cerveza->amargor}' name="amargor" min=0 max=300></br>
             Alcohol %: <input type="number" value='{$cerveza->alcohol}' name="alcohol" min=0 max=50></br>
-            <input type="submit" value='Confirmar'>
+            <input type="submit" value='Confirmar'></br>
+            <a href="{$base}/cerveza/editar/imgs/{$cerveza->id_cerveza}">Gestionar Imágenes</a>
         </fieldset>
     </form>
 </body>

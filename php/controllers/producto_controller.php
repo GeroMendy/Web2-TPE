@@ -65,16 +65,7 @@
         public function addCerveza(){
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
-                if ($_POST['sinImagen'])
-                    $img_preloaded="";
-                else
-                    $img_preloaded=$_POST['imagen-preloaded'];
-                if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png"){
-                    $img=$_FILES['input_img']['tmp_name'];
-                }else{
-                    $img=null;
-                }
-                $this->cervezas_model->addCerveza($_POST['nombre'],$img,$id_estilo,$_POST['amargor'],$_POST['alcohol'],$img_preloaded);
+                $this->cervezas_model->addCerveza($_POST['nombre'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
                 $this->redirectCerveza();
            }else{
                $this->redirectHeader();
@@ -112,26 +103,58 @@
         public function editCerveza(){
             if(isAdmin()){
                 $nombre=$_POST['nombre'];
-                $imagen=$_POST['imagen'];
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
                 $amargor=$_POST['amargor'];
                 $alcohol=$_POST['alcohol'];
                 $id_cerveza=$_POST['id_cerveza'];
-                if ($_POST['sinImagen'])
-                    $img_preloaded="";
-                else
-                    $img_preloaded=$_POST['imagen-preloaded'];
-                if($_FILES['input_img']['type'] == "image/jpg" || $_FILES['input_img']['type'] == "image/jpeg" || $_FILES['input_img']['type'] == "image/png")
-                    $img=$_FILES['input_img']['tmp_name'];
-                else
-                    $img=null;
-                $this->cervezas_model->updateCerveza($nombre,$img,$id_estilo,$amargor,$alcohol,$id_cerveza,$img_preloaded);
+                $this->cervezas_model->updateCerveza($nombre,$id_estilo,$amargor,$alcohol,$id_cerveza);
                 $this->redirectCerveza();
             }else{
                 $this->redirectHeader();
             }
         }
+        
+        public function displayEditImgs($params = null){
+            if(isAdmin()){
+                $dir = "img/cervezas/".$this->cervezas_model->getCerveza($params[":ID"])->imagen;
+                $this->cervezas_view->displayEditImgs($dir,$params[":ID"]);
+            }else{
+                $this->redirectHeader();
+            }    
+        }
 
+        public function deleteImg($params = null){
+            if(isAdmin()){
+                $id=$params[":ID"];
+                $img=$params[":IMG"];
+                $this->cervezas_model->deleteImg($id,$img);
+                header('Location: '.BASE_URL."/cerveza/editar/imgs/".$id);
+            }else{
+                $this->redirectHeader();
+            }   
+        }
+        public function uploadImg($params = null){
+            if(isAdmin()){
+                $rutaTempImagenes = $_FILES['imagenes']['tmp_name'];
+                $id=$params[":ID"];
+                if($this->sonJPG($_FILES['imagenes']['type'])) {
+                    $this->cervezas_model->subirImgs($id,$rutaTempImagenes);
+                    header('Location: '.BASE_URL."/cerveza/editar/imgs/".$id);
+                  }
+                else
+                    echo "Las imagenes tienen que ser JPG";
+            }else
+                $this->redirectHeader();
+        }
+
+        private function sonJPG($imagenesTipos){
+            foreach ($imagenesTipos as $tipo) {
+              if($tipo != 'image/jpeg') {
+                return false;
+              }
+            }
+            return true;
+        }
         //Functions para Estilos.
         
         public function getEstilos(){
@@ -210,5 +233,4 @@
                 $this->redirectHeader();
             }
         }
-
     }

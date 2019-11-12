@@ -11,9 +11,11 @@
         <a href='{$base}/cerveza'>Lista Cervezas</a>
         <fieldset>
             <legend><h1>{$cerveza->nombre}</h1></legend>
-            {if $cerveza->imagen neq ""}
-                <img src='{$base}/img/cervezas/{$cerveza->imagen}' width="300">
-            {/if}
+            <h2>Imagenes: </h2>
+                {foreach from=$imagenes item=img}
+                    <img src='{$base}/img/cervezas/{$cerveza->imagen}/{$img}' width="300">
+                {/foreach}
+            </br>
             <h2>Estilo: {$cerveza->Estilo}</h2>
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
