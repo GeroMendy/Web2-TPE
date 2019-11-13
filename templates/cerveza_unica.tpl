@@ -25,6 +25,9 @@
         <fieldset>
             <legend><h3>Comentarios</h3></legend>
             Si es admin agregar eliminar
+
+            {{include file="templates/vue/comentarios_cerveza.tpl"}}
+
         </fieldset>
     </body>
 </html>
