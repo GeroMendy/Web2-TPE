@@ -29,10 +29,8 @@
 
     $router->addRoute("cerveza/editar/:ID","GET",PROD_C,"displayEditCerveza");
     $router->addRoute("cerveza/editar/:ID", "POST", PROD_C, "editCerveza");
-    $router->addRoute("cerveza/editar/imgs/:ID","GET",PROD_C,"displayEditImgs");
-    $router->addRoute("cerveza/editar/imgs/:ID","GET",PROD_C,"displayEditImgs");
-    $router->addRoute("deleteImg/:ID/:IMG","GET",PROD_C,"deleteImg");
-    $router->addRoute("subirImg/:ID","POST",PROD_C,"uploadImg");
+    $router->addRoute("/cerveza/eliminarImg/:ID/:ARCH","GET",PROD_C,"eliminarImagen");
+    
     
     $router->addRoute("cerveza/eliminar/:ID","GET",PROD_C,"deleteCerveza");
     

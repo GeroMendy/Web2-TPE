@@ -18,10 +18,17 @@
                     <option value="{$est->nombre}">{$est->nombre}</option>
                 {/foreach}
             </select></br>
+            imagenes:
+              {if !empty($cerveza->imagenes)}
+                {foreach from=$cerveza->imagenes item=imagen}
+                    <img src="{$base}/img/cervezas/{$imagen->archivo}" width=40><a href="{$base}/cerveza/eliminarImg/{$cerveza->id_cerveza}/{$imagen->archivo}">Eliminar</a></br>
+                {/foreach}
+              {else} No hay imágenes para mostrar</br>
+              {/if}
+            Cargar Imagen(es): <input type="file" name="imagesToUpload[]" id="imagesToUpload" multiple></br>
             Amargor: <input type="number" value='{$cerveza->amargor}' name="amargor" min=0 max=300></br>
             Alcohol %: <input type="number" value='{$cerveza->alcohol}' name="alcohol" min=0 max=50></br>
             <input type="submit" value='Confirmar'></br>
-            <a href="{$base}/cerveza/editar/imgs/{$cerveza->id_cerveza}">Gestionar Imágenes</a>
         </fieldset>
     </form>
 </body>

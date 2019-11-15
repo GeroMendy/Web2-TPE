@@ -65,11 +65,34 @@
         public function addCerveza(){
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
-                $this->cervezas_model->addCerveza($_POST['nombre'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
+                $imgs=$_FILES["imagesToUpload"]["tmp_name"];
+                if ($imgs[0]!=""){
+                    if ($this->sonIMG($imgs)){
+                        $this->cervezas_model->addCerveza($_POST['nombre'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
+                    }else echo ("Archivos inválidos");
+                }else $this->cervezas_model->addCerveza($_POST['nombre'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
                 $this->redirectCerveza();
            }else{
                $this->redirectHeader();
            }
+        }
+
+        public function eliminarImagen($params = null){
+            if(isAdmin()){
+                $this->cervezas_model->deleteImagen($params[":ID"],$params[":ARCH"]);
+                header('Location: '.BASE_URL."/cerveza/editar/".$params[":ID"]);;
+            }else{
+                $this->redirectHeader();
+            }
+        }
+
+        private function sonIMG($imagenesTipos){
+            foreach ($imagenesTipos as $tipo) {
+              if($tipo != ('image/jpeg'||'image/jpeg')) {
+                return false;
+              }
+            }
+            return true;
         }
 
         public function displayAgregarCerveza(){
@@ -107,54 +130,19 @@
                 $amargor=$_POST['amargor'];
                 $alcohol=$_POST['alcohol'];
                 $id_cerveza=$_POST['id_cerveza'];
-                $this->cervezas_model->updateCerveza($nombre,$id_estilo,$amargor,$alcohol,$id_cerveza);
+                $imgs=$_FILES["imagesToUpload"]["tmp_name"];
+                if ($imgs[0]!=""){
+                    if ($this->sonIMG($imgs)){
+                        $this->cervezas_model->updateCerveza($nombre,$id_estilo,$amargor,$alcohol,$id_cerveza);
+                    }else echo ("Archivos inválidos");
+                }else $this->cervezas_model->updateCerveza($nombre,$id_estilo,$amargor,$alcohol,$id_cerveza);
                 $this->redirectCerveza();
             }else{
                 $this->redirectHeader();
             }
         }
-        
-        public function displayEditImgs($params = null){
-            if(isAdmin()){
-                $dir = "img/cervezas/".$this->cervezas_model->getCerveza($params[":ID"])->imagen;
-                $this->cervezas_view->displayEditImgs($dir,$params[":ID"]);
-            }else{
-                $this->redirectHeader();
-            }    
-        }
 
-        public function deleteImg($params = null){
-            if(isAdmin()){
-                $id=$params[":ID"];
-                $img=$params[":IMG"];
-                $this->cervezas_model->deleteImg($id,$img);
-                header('Location: '.BASE_URL."/cerveza/editar/imgs/".$id);
-            }else{
-                $this->redirectHeader();
-            }   
-        }
-        public function uploadImg($params = null){
-            if(isAdmin()){
-                $rutaTempImagenes = $_FILES['imagenes']['tmp_name'];
-                $id=$params[":ID"];
-                if($this->sonJPG($_FILES['imagenes']['type'])) {
-                    $this->cervezas_model->subirImgs($id,$rutaTempImagenes);
-                    header('Location: '.BASE_URL."/cerveza/editar/imgs/".$id);
-                  }
-                else
-                    echo "Las imagenes tienen que ser JPG";
-            }else
-                $this->redirectHeader();
-        }
 
-        private function sonJPG($imagenesTipos){
-            foreach ($imagenesTipos as $tipo) {
-              if($tipo != 'image/jpeg') {
-                return false;
-              }
-            }
-            return true;
-        }
         //Functions para Estilos.
         
         public function getEstilos(){

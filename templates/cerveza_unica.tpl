@@ -12,9 +12,12 @@
         <fieldset>
             <legend><h1>{$cerveza->nombre}</h1></legend>
             <h2>Imagenes: </h2>
-                {foreach from=$imagenes item=img}
-                    <img src='{$base}/img/cervezas/{$cerveza->imagen}/{$img}' width="300">
+            {if !empty($cerveza->imagenes)}
+                {foreach from=$cerveza->imagenes item=imagen}
+                    <img src="{$base}/img/cervezas/{$imagen->archivo}">
                 {/foreach}
+            {else} No hay imágenes para mostrar
+            {/if}
             </br>
             <h2>Estilo: {$cerveza->Estilo}</h2>
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
