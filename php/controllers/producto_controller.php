@@ -142,6 +142,9 @@
             }
         }
 
+        public function postComment(){
+            echo (getUserSessionNombre()." - ".$_POST["comment"]." - ".$_POST["puntaje"]);
+        }
 
         //Functions para Estilos.
         

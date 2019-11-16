@@ -12,6 +12,7 @@ class cervezas_model{
         $select = $this->db->prepare("SELECT cerveza.*, estilo.nombre as Estilo FROM ".$this->tabla." JOIN estilo ON cerveza.id_estilo = estilo.id_estilo");
         $select->execute();
         $cervezas = $select->fetchAll(PDO::FETCH_OBJ);
+        $this->fetchImg($cervezas);
         return $cervezas;
     }
 
@@ -30,6 +31,7 @@ class cervezas_model{
         $select = $this->db->prepare("SELECT cerveza.*, estilo.nombre as Estilo FROM ".$this->tabla." JOIN estilo ON cerveza.id_estilo = estilo.id_estilo WHERE estilo.id_estilo=?");
         $select->execute(array($id_estilo));
         $cervezas = $select->fetchAll(PDO::FETCH_OBJ);
+        $this->fetchImg($cervezas);
         return $cervezas;
     }   
 
@@ -37,7 +39,20 @@ class cervezas_model{
         $select = $this->db->prepare("SELECT cerveza.*, estilo.nombre as Estilo FROM ".$this->tabla." JOIN estilo ON cerveza.id_estilo = estilo.id_estilo ORDER BY Estilo ASC");
         $select->execute();
         $cervezas = $select->fetchAll(PDO::FETCH_OBJ);
+        $this->fetchImg($cervezas);
         return $cervezas;
+    }
+
+    private function fetchImg($cervezas){//Adjunta a cada cerveza un atributo imagen con la primera imagen asociada al id en la tabla imagen
+        foreach($cervezas as $cerve){
+            $imgQuery=$this->db->prepare("SELECT archivo FROM " .$this->tabla_img. " WHERE id_cerveza=?");
+            $imgQuery->execute(array($cerve->id_cerveza));
+            $imagen = $imgQuery->fetch(PDO::FETCH_OBJ);
+            if ($imagen)
+                $cerve->imagen=$imagen->archivo;
+            else
+            $cerve->imagen="";
+        }
     }
 
     public function addCerveza($nombre,$id_estilo,$amargor,$alcohol){
@@ -51,11 +66,10 @@ class cervezas_model{
             $sentencia_img= $this->db->prepare("INSERT INTO ".$this->tabla_img." (archivo,id_cerveza) VALUES(?,?)");
             foreach($imagenes as $key=>$tmp_name)
             {   
-                $uid=uniqid().".jpg";
+                $uid=uniqid(random_int(0,255)).".jpg";
                 $destino = "img/cervezas/".$uid;
                 move_uploaded_file($tmp_name,$destino);
                 $sentencia_img->execute([$uid,$id]);
-                usleep(10);
             }
         }  
     }
@@ -70,11 +84,10 @@ class cervezas_model{
             $sentencia_img= $this->db->prepare("INSERT INTO ".$this->tabla_img." (archivo,id_cerveza) VALUES(?,?)");
             foreach($imagenes as $key=>$tmp_name)
             {   
-                $uid=uniqid().".jpg";
+                $uid=uniqid(random_int(0,255)).".jpg";
                 $destino = "img/cervezas/".$uid;
                 move_uploaded_file($tmp_name,$destino);
                 $sentencia_img->execute([$uid,$id_cerveza]);
-                usleep(10);
             }
     }
     }

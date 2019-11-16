@@ -39,6 +39,8 @@
 
     $router->addRoute("cerveza/:ID","GET",PROD_C,"getCerveza");
 
+    $router->addRoute("cerveza/comentar","POST",PROD_C,"postComment");
+
     //Cervezas
 
     //Estilos
