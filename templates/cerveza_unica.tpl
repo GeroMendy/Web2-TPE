@@ -16,7 +16,7 @@
             {if !empty($cerveza->imagenes)}
                 <div>
                     {foreach from=$cerveza->imagenes item=imagen}
-                            <img class="Slides" src="{$base}/img/cervezas/{$imagen->archivo}" width="300">
+                            <img class="Slides" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
                     {/foreach}
                 </div>
             {else} No hay imágenes para mostrar
@@ -30,7 +30,7 @@
             <fieldset>
                 <legend><h3>Comentar</h3></legend>
                 <form method='POST' action='{$base}/cerveza/comentar' id="commentform">
-                    Comentario:</br> <textarea name="comment" form="commentform"></textarea></br>
+                    Comentario:</br> <textarea name="comment" form="commentform" cols="60" rows="4" placeholder="Comenta aquí, 255 caracteres máximo" maxlength="255"></textarea></br>
                     Puntaje: <input type="number" value="3" name="puntaje" min=0 max=5></br>
                     <input type="submit" value='Publicar'>
                 </form>
