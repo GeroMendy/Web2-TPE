@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{$titulo}</title>
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
         <a href='{$base}'>HOME</a></br>
@@ -23,11 +25,16 @@
             </fieldset>
         {/if}
         <fieldset>
+            <input id="id_cerveza_para_getComentarios" style="visibility:hidden" value="{$cerveza->id_cerveza}">
             <legend><h3>Comentarios</h3></legend>
-            Si es admin agregar eliminar
+
+            //Vue-0
 
             {{include file="templates/vue/comentarios_cerveza.tpl"}}
 
+            //Vue-1
+
         </fieldset>
     </body>
+    <script src="../js/comentarios_cerveza.js"></script>
 </html>

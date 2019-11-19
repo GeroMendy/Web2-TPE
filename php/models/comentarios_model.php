@@ -11,9 +11,10 @@ class comentarios_model{
     }
 
     public function getComentarios($id_cerveza){  //Siempre se llama desde la pagina de una cerveza idividual.
-        $select = $this->db->prepare('SELECT '.$this->table.'*, usuario.nombre AS usuario JOIN usuario ON '.$this->table.'.id_usuario = usuario.id_usuario WHERE id_cerveza=?');
+        $select = $this->db->prepare('SELECT '.$this->table.'.*, usuario.nombre AS usuario FROM '.$this->table.' JOIN usuario ON '.$this->table.'.id_usuario = usuario.id_usuario WHERE id_cerveza=?');
         $select->execute(array($id_cerveza));
-        return $select->fetchAll(PDO::FETCH_OBJ);
+        $comentarios = $select->fetchAll(PDO::FETCH_OBJ);
+        return $comentarios;
     }
     public function addComentario($id_usuario,$id_cerveza,$valoracion,$texto){
         $insert = $this->db->prepare('INSERT INTO '.$this->table.' (id_usuario,id_cerveza,valoracion,texto) VALUES (?,?,?,?)');
@@ -27,8 +28,13 @@ class comentarios_model{
         $delete = $this->db->prepare('DELETE FROM '.$this->table.' WHERE id_comentario=?');
         $delete->execute(array($id_comentario));
     }
-    public function getUserId($id_comentario){
+    public function getUserId($id_comentario){  //Para determinar si puede borrar/editar un usuario no Admin.
         $select = $this->db->prepare('SELECT id_usuario FROM '.$this->table.' WHERE id_comentario=?');
+        $select->execute(array($id_comentario));
+        return $select->fetch(PDO::FETCH_COLUMN);
+    }
+    public function getCervezaId($id_comentario){   //Para redireccionar usuarios sin permiso.
+        $select = $this->db->prepare('SELECT id_cerveza FROM '.$this->table.' WHERE id_comentario=?');
         $select->execute(array($id_comentario));
         return $select->fetch(PDO::FETCH_COLUMN);
     }
