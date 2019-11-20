@@ -10,6 +10,6 @@ abstract class ApiController {
     }
 
     protected function getData(){
-        return json_decode($this->data); 
-    }  
+        return json_decode($this->data);
+    }
 }

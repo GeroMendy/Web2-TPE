@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
     function postComentario(e){
         e.preventDefault();
-        console.log("postComentario --- 0");
         
         let valoracion = form_comentario.getElementsByTagName("input").namedItem("valoracion").value;
         let texto = document.querySelector("#agregar_comentario_texto").value;
@@ -36,11 +35,9 @@ document.addEventListener("DOMContentLoaded",function(){
             "headers":{"Content-type":"application/json"},
             "body": JSON.stringify(json)
         };
-        console.log(paquete_post);
-        
 
         fetch(getUrlAddComentario(),paquete_post)
-        .then(console.log("postComentario --- 1 : "+paquete_post))
+        .then(getComentarios())
         .catch(error=>console.log(error))
 
     }
@@ -55,6 +52,23 @@ document.addEventListener("DOMContentLoaded",function(){
         comentarios_vue.adminLogged = isAdmin();
         comentarios_vue.id_usuario_logged = getIdLogged();
         comentarios_vue.url_eliminar = getUrlEliminar();
+    }
+
+    function isAdmin(){
+        let input = document.querySelector("#isAdmin");
+        if(input!=null){
+            return input.value;
+        }else{
+            return false;
+        }
+    }
+    function getIdLogged(){
+        let input = document.querySelector("#id_logged");
+        if(input!=null){
+            return input.value;
+        }else{
+            return -1;
+        }
     }
 
     function getUrlgetComentarios(){
@@ -79,21 +93,6 @@ document.addEventListener("DOMContentLoaded",function(){
         url = url.substring(0,inicio) + newPath + url.substring(fin,url.length);
         return url;
     }
-    function isAdmin(){
-        let input = document.querySelector("#isAdmin");
-        if(input!=null){
-            return input.value;
-        }else{
-            return false;
-        }
-    }
-    function getIdLogged(){
-        let input = document.querySelector("#id_logged");
-        if(input!=null){
-            return input.value;
-        }else{
-            return -1;
-        }
-    }
+
     getComentarios();
 });

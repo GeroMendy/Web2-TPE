@@ -29,8 +29,9 @@
         public function addComentario($id_cerveza = null){ //POST.
             $id_cerveza = $id_cerveza[':ID_CERVEZA'];
             if(islogged()){
-                $texto = $_POST['texto'];
-                $valoracion = $_POST['valoracion'];
+                $data = $this->getData();
+                $texto = $data->texto;
+                $valoracion = $data->valoracion;
                 $id_usuario = getUserSessionId();
                 $this->model->addComentario($id_usuario,$id_cerveza,$valoracion,$texto);
                 return $this->view->response("Comentario agregado correctamente",200);
