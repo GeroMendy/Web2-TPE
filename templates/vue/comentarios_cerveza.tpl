@@ -1,20 +1,18 @@
 {literal}
     <div id="vue-comentarios">  <!--Acomodar con bootstrap.-->
 
-        <h2>    {{  subtitulo  }}    </h2>
-
         <ul>
+
             <li v-for="com in comentarios">
-                <!--
-                <span v-if="adminLogged">    {{}}    </span>
-                Link para eliminar usuario si el actual logueado es admin
-                -->
-                <span <!--    v-else   --> >{{com.usuario}}    -    </span>
-                <span>{{com.valoracion}}</span>
+
+                <span>{{com.usuario}} {{com.valoracion}}</span>
+
+                <span v-if="adminLogged=== '1' || id_usuario_logged===com.id_usuario"><a href={{url_eliminar}}>Eliminar comentario</a></span>
+
                 <span></br>{{com.texto}}</span>
-                <span v-if=" com.id_usuario==id_usuario_logged ">same user<!--  link a eliminar o editar  --></span>
-                <span v-ifelse=" adminLoged ">admin<!--  link a eliminar comentario  --></span>
+
             </li>
+
         </ul>
     </div>
 {/literal}

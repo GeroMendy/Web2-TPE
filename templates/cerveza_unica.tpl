@@ -18,21 +18,19 @@
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
         </fieldset></br>
-        {if $logged}
+        {if $id_logged!=-1}
             <fieldset>
                 <legend><h2>Comentar</h2></legend>
             
             </fieldset>
         {/if}
         <fieldset>
-            <input id="id_cerveza_para_getComentarios" style="visibility:hidden" value="{$cerveza->id_cerveza}">
-            <legend><h3>Comentarios</h3></legend>
-
-            //Vue-0
+           <legend><h3>Comentarios</h3></legend>
 
             {{include file="templates/vue/comentarios_cerveza.tpl"}}
 
-            //Vue-1
+            <input class="hidden" id="id_logged" style="visibility:hidden" value={$id_logged}>
+            <input class="hidden" id="isAdmin" style="visibility:hidden" value={$admin}> 
 
         </fieldset>
     </body>

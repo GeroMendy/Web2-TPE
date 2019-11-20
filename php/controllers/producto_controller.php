@@ -47,7 +47,7 @@
 
         public function getCerveza($id_cerveza){
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),isLogged());
+            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),getUserSessionId());
         }
         
         public function getCervezasByEstilo(){
