@@ -1,18 +1,13 @@
 {literal}
     <div id="vue-comentarios">  <!--Acomodar con bootstrap.-->
+        
+        <fieldset v-for="com in comentarios">
+            <legend>    <h2>{{com.usuario}}</h2>    </legend>
+            <h3> Valoracion : {{com.valoracion}}/5</h3>
 
-        <ul>
+            <a v-if="adminLogged=== '1' || id_usuario_logged===com.id_usuario" href={{url_eliminar}}>Eliminar comentario</a>
+            <p></br>{{com.texto}}</p>
+        </fieldset>
 
-            <li v-for="com in comentarios">
-
-                <span>{{com.usuario}} {{com.valoracion}}</span>
-
-                <span v-if="adminLogged=== '1' || id_usuario_logged===com.id_usuario"><a href={{url_eliminar}}>Eliminar comentario</a></span>
-
-                <span></br>{{com.texto}}</span>
-
-            </li>
-
-        </ul>
     </div>
 {/literal}
