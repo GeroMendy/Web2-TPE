@@ -1,7 +1,7 @@
 <?php
 
     require_once "php/models/usuarios_model.php";
-    require_once "php/controllers/session_controller.php";
+    require_once "php/helpers/session_helper.php";
     require_once "php/views/usuarios_view.php";
     require_once "php/views/index_view.php";
 

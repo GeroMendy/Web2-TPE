@@ -4,13 +4,14 @@ class JSONView {
 
     public function response($data, $status) {
         header("Content-Type: application/json");
-        header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));
+        header("HTTP/1.1 " . $status . " - " . $this->_requestStatus($status));
         echo json_encode($data);
     }
 
     private function _requestStatus($code){
         $status = array(
             200 => "OK",
+            401 => "Authentication Error",
             404 => "Not found",
             500 => "Internal Server Error"
           );

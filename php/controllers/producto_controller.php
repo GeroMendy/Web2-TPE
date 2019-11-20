@@ -3,7 +3,7 @@
     require_once "php/models/estilos_model.php";
     require_once "php/views/cervezas_view.php";
     require_once "php/views/estilos_view.php";
-    require_once "php/controllers/session_controller.php";
+    require_once "php/helpers/session_helper.php";
     require_once "php/views/index_view.php";
 
     // Controller para Cervezas y Estilos.
@@ -49,7 +49,7 @@
 
         public function getCerveza($id_cerveza){
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),isLogged());
+            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),getUserSessionId());
         }
         
         public function getCervezasByEstilo(){

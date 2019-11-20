@@ -6,6 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{$titulo}</title>
         <link rel="stylesheet" href="{$base}/css/estilo.css">
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
         <a href='{$base}'>HOME</a></br>
@@ -26,7 +28,7 @@
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
         </fieldset></br>
-        {if $logged}
+        {if $id_logged!=-1}
             <fieldset>
                 <legend><h3>Comentar</h3></legend>
                 <form method='POST' action='{$base}/cerveza/comentar' id="commentform">
@@ -37,9 +39,15 @@
             </fieldset>
         {/if}
         <fieldset>
-            <legend><h3>Comentarios</h3></legend>
-            Si es admin agregar eliminar
+           <legend><h3>Comentarios</h3></legend>
+
+            {{include file="templates/vue/comentarios_cerveza.tpl"}}
+
+            <input class="hidden" id="id_logged" style="visibility:hidden" value={$id_logged}>
+            <input class="hidden" id="isAdmin" style="visibility:hidden" value={$admin}> 
+
         </fieldset>
         <script src="{$base}/js/script.js"></script>
     </body>
+    <script src="../js/comentarios_cerveza.js"></script>
 </html>

@@ -4,7 +4,14 @@
     require_once ("php/api/JSONView.php");
     
     class ProductoApiController extends ApiController{
-            
+        
+        private $model;
+
+        public function __construct(){
+            $this->model = new cervezas_model();
+            parent::__construct();
+        }
+
         function getCervezas($params = []) {
             $cervezas = $this->model->getCervezas();
             return $this->view->response($cervezas, 200);
