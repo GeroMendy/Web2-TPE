@@ -28,20 +28,20 @@
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
         </fieldset></br>
-        {if $id_logged!=-1}
+        {if $id_logged neq ''}
             <fieldset>
-                <legend><h3>Comentar</h3></legend>
-                <form method='POST' action='{$base}/cerveza/comentar' id="commentform">
-                    Comentario:</br> <textarea name="comment" form="commentform" cols="60" rows="4" placeholder="Comenta aquí, 255 caracteres máximo" maxlength="255"></textarea></br>
-                    Puntaje: <input type="number" value="3" name="puntaje" min=0 max=5></br>
-                    <input type="submit" value='Publicar'>
-                </form>
+                <legend><h2>Comentar</h2></legend>                
+                    <form id="commentform">
+                        Comentario:</br> <textarea id="agregar_comentario_texto" name="texto" form="commentform" cols="60" rows="8" placeholder="Comenta aquí, 500 caracteres máximo" maxlength="500"></textarea></br>
+                        Valoracion: <input type="number" value="3" name="valoracion" min=1 max=5></br>
+                        <input type="submit" value='Publicar'>
+                    </form>
             </fieldset>
         {/if}
         <fieldset>
-           <legend><h3>Comentarios</h3></legend>
+           <legend><h1>Comentarios</h1></legend>
 
-            {{include file="templates/vue/comentarios_cerveza.tpl"}}
+            {include file="templates/vue/comentarios_cerveza.tpl"}
 
             <input class="hidden" id="id_logged" style="visibility:hidden" value={$id_logged}>
             <input class="hidden" id="isAdmin" style="visibility:hidden" value={$admin}> 
