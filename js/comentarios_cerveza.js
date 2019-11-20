@@ -37,7 +37,9 @@ document.addEventListener("DOMContentLoaded",function(){
         };
 
         fetch(getUrlAddComentario(),paquete_post)
-        .then(getComentarios())
+        .then(p=>{
+            setInterval(getComentarios(),300);
+            })
         .catch(error=>console.log(error))
 
     }
