@@ -25,7 +25,18 @@
             $this->indexview->displayIndex(isLogged(),isAdmin(),getUserSessionNombre());
         }
 
+        private function validData($arr,$key){//funcion 'isset', seteo $arr nulo para revisar $_POST.
+            if($arr==null){
+                return (isset($_POST[$key])&&$_POST[$key]!='');
+            }
+            return (isset($arr[$key])&&$arr[$key]!='');
+        }
+
         public function logIn(){
+            if( !validData(null,'email') || !validData(null,'password') ){
+                //pantalla error
+                $this->displayIndex();
+            }
             $mail=$_POST['email'];
             $password=$_POST['password'];
             $user = $this->model->getUsuario($mail);
@@ -38,6 +49,10 @@
         }
         
         public function register(){
+            if( !validData(null,'email') || !validData(null,'password') || !validData(null,'nombre')){
+                //pantalla error
+                $this->displayIndex();
+            }
             $nombre=$_POST['nombre'];
             $pass=$_POST['password'];
             $mail=$_POST['email'];
@@ -60,6 +75,11 @@
 
         public function deleteUser($params = null){
             if(isAdmin()){
+                    
+                if( !validData($params,':ID') ){
+                    //pantalla error
+                    $this->displayIndex();
+                }
                 $this->model->deleteUser($params[":ID"]);
                 $this->displayUserAdmin();
             }else{
@@ -69,6 +89,11 @@
 
         public function toggleAdmin($params = null){
             if(isAdmin()){
+                
+                if( !validData($params,':ID') ){
+                    //pantalla error
+                    $this->displayIndex();
+                }
                 $this->model->toggleAdmin($params[":ID"]);
                 $this->displayUserAdmin();
             }else{

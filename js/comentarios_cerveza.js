@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded",function(){
             id_usuario_logged: '',
             comentarios: [],
             url_eliminar: '',
-            adminLogged: 0
+            adminLogged: 0,
+            promedio: 0
         }
     });
 
@@ -49,6 +50,13 @@ document.addEventListener("DOMContentLoaded",function(){
         .then(response => response.json())
         .then(comentarios => {
             comentarios_vue.comentarios = comentarios;
+            let valoracionTotal = 0;
+            comentarios.forEach(com => {
+                valoracionTotal += Number.parseInt(com.valoracion);
+            });
+            console.log(valoracionTotal+" / "+comentarios.length+" = "+valoracionTotal/comentarios.length);
+            
+            comentarios_vue.promedio = (valoracionTotal/comentarios.length);
         })
         .catch(error => console.log(error));
         comentarios_vue.adminLogged = isAdmin();

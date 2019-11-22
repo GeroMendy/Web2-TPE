@@ -26,7 +26,7 @@
             $this->index_view=new index_view();
         }
 
-        public function index(){
+        public function index(){//Ruta por defecto
             $this->index_view->displayIndex(isLogged(),isAdmin(),getUserSessionNombre());
         }
         
@@ -34,7 +34,20 @@
             header('Location: '.BASE_URL);
         }
 
+#funcion privada para revisar 'Isset',Funciona para post o para un arreglo local pero no para get(tampoco quiero pasar como string esa informacion)
+        private function validData($arr,$key){
+            if($arr==null){
+                return (isset($_POST[$key])&&$_POST[$key]!='');
+            }
+            return (isset($arr[$key])&&$arr[$key]!='');
+        }
+
         // Functions para Cerveza.
+        
+        private function redirectCerveza(){
+            header('Location: '.BASE_URL."/cerveza");
+        }
+
         public function getCervezasSortedByEstilo(){
             $list_cervezas = $this->cervezas_model->getCervezasSortedByEstilo();
             $estilos = $this->estilos_model->getEstilos();
@@ -48,28 +61,36 @@
         }
 
         public function getCerveza($id_cerveza){
+            if( !isset($id_cerveza[':ID']) || $id_cerveza[':ID']=='' ){
+                $this->redirectCerveza();
+            }
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
             $this->cervezas_view->displayCerveza($cerveza,isAdmin(),getUserSessionId());
         }
         
         public function getCervezasByEstilo(){
+            if( !isset($_GET['estilo']) || $_GET['estilo']=='' ){
+                $this->redirectCerveza();
+            }
             $id_estilo= $this->estilos_model->getIdEstilo($_GET['estilo']);
             $list_cervezas = $this->cervezas_model->getCervezasByEstilo($id_estilo);
             $estilos = $this->estilos_model->getEstilos();
             $this->cervezas_view->generateTable($list_cervezas,isAdmin(),$estilos);
         }
-
-        public function redirectCerveza(){
-            header('Location: '.BASE_URL."/cerveza");
-        }
         public function addCerveza(){
+            if(!validData(null,'estilo') || !validData(null,'nombre') || !validData(null,'amargor') || !validData(null,'alcohol')){
+                //Pantalla de error.
+                $this->redirectCerveza();
+            }
             if(isAdmin()){
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
                 $imgs=$_FILES["imagesToUpload"]["tmp_name"];
                 if ($imgs[0]!=""){
                     if ($this->sonIMG($imgs)){
                         $this->cervezas_model->addCerveza($_POST['nombre'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
-                    }else echo ("Archivos inválidos");
+                    }else{
+                        echo ("Archivos inválidos");
+                    }                
                 }else $this->cervezas_model->addCerveza($_POST['nombre'],$id_estilo,$_POST['amargor'],$_POST['alcohol']);
                 $this->redirectCerveza();
            }else{
@@ -79,6 +100,10 @@
 
         public function eliminarImagen($params = null){
             if(isAdmin()){
+                if(!validData($params,':ID')||!validData($params,':ARCH')){
+                    //pantalla error.
+                    $this->redirectCerveza();
+                }
                 $this->cervezas_model->deleteImagen($params[":ID"],$params[":ARCH"]);
                 header('Location: '.BASE_URL."/cerveza/editar/".$params[":ID"]);;
             }else{
@@ -106,6 +131,11 @@
 
         public function deleteCerveza($params = null){
             if(isAdmin()){
+                if(!validData($params,':ID')){
+                    //pantalla error.
+                    $this->redirectCerveza();
+                }
+
                 $this->cervezas_model->deleteCerveza($params[":ID"]);
                 $this->redirectCerveza();
             }else{
@@ -115,6 +145,11 @@
 
         public function displayEditCerveza($params = null){
             if(isAdmin()){
+                if(!validData($params,':ID')){
+                    //pantalla error.
+                    $this->redirectCerveza();
+                }
+
                 $cerveza = $this->cervezas_model->getCerveza($params[":ID"]);
                 $estilos = $this->estilos_model->getEstilos();
                 $this->cervezas_view->displayEditCerveza($cerveza,$estilos);
@@ -125,6 +160,11 @@
 
         public function editCerveza(){
             if(isAdmin()){
+                if(!validData(null,'estilo') || !validData(null,'nombre') || !validData(null,'amargor') || !validData(null,'alcohol') || !validData(null,'id_cerveza')){
+                    //pantalla error.
+                    $this->redirectCerveza();
+                }
+
                 $nombre=$_POST['nombre'];
                 $id_estilo=$this->estilos_model->getIdEstilo($_POST['estilo']);
                 $amargor=$_POST['amargor'];
@@ -142,11 +182,10 @@
             }
         }
 
-        public function postComment(){
-            echo (getUserSessionNombre()." - ".$_POST["comment"]." - ".$_POST["puntaje"]);
-        }
-
         //Functions para Estilos.
+        private function redirectEstilo(){
+            header('Location: '.BASE_URL."/estilo");
+        }
         
         public function getEstilos(){
             $list_estilos = $this->estilos_model->getEstilos();
@@ -154,16 +193,23 @@
         }
         
         public function getEstilo($id_estilo = null){
+            if(!validData($params,':ID')){
+                //pantalla error.
+                $this->redirectEstilo();
+            }
             $est=$this->estilos_model->getEstilo($id_estilo[":ID"]);
             $this->estilos_view->generateTable([$est],isAdmin());
-        }
-        
-        public function redirectEstilo(){
-            header('Location: '.BASE_URL."/estilo");
         }
 
         public function addEstilo(){
             if(isAdmin()){
+
+                if( !validData(null,'nombre') || !validData(null,'color') || !validData(null,'aroma') || !validData(null,'apariencia') || !validData(null,'sabor') 
+                || !validData(null,'amin') || !validData(null,'amax') || !validData(null,'almin') || !validData(null,'almax') ){      
+                    //pantalla error.
+                    $this->redirectEstilo();
+                }
+
                 $nombre=$_POST['nombre'];
                 $color=$_POST['color'];
                 $aroma=$_POST['aroma'];
@@ -191,6 +237,11 @@
 
         public function deleteEstilo($id = null){
             if(isAdmin()){
+                
+                if(!validData($id,':ID')){
+                    //pantalla error.
+                    $this->redirectEstilo();
+                }
                 $this->estilos_model->deleteEstilo($id[":ID"]);
                 $this->redirectEstilo();
             }else{
@@ -200,6 +251,10 @@
 
         public function displayEditEstilo($id = null){
             if(isAdmin()){
+                if(!validData($id,':ID')){
+                    //pantalla error.
+                    $this->redirectEstilo();
+                }
                 $estilo = $this->estilos_model->getEstilo($id[":ID"]);
                 $this->estilos_view->editEstilo($estilo);
             }else{
@@ -208,6 +263,11 @@
         }
         public function editEstilo(){
             if(isAdmin()){
+                if( !validData(null,'nombre') || !validData(null,'color') || !validData(null,'aroma') || !validData(null,'apariencia') || !validData(null,'sabor') 
+                || !validData(null,'amin') || !validData(null,'amax') || !validData(null,'almin') || !validData(null,'almax') || !validData(null,'id_estilo') ){      
+                    //pantalla error.
+                    $this->redirectEstilo();
+                }
                 $id=$_POST['id_estilo'];
                 $nombre=$_POST['nombre'];
                 $color=$_POST['color'];

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{$titulo}</title>
-        <link rel="stylesheet" href="{$base}/css/estilo.css">
+        <link rel="stylesheet" href="{$base}/css/cerveza_unica.css">
         <!-- development version, includes helpful console warnings -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
@@ -18,7 +18,7 @@
             {if !empty($cerveza->imagenes)}
                 <div>
                     {foreach from=$cerveza->imagenes item=imagen}
-                            <img class="Slides hidden" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
+                            <img class="Slides" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
                     {/foreach}
                 </div>
             {else} No hay imágenes para mostrar
@@ -47,7 +47,7 @@
             <input class="hidden" id="isAdmin" style="visibility:hidden" value={$admin}> 
 
         </fieldset>
-        <script src="{$base}/js/script.js"></script>
     </body>
-    <script src="../js/comentarios_cerveza.js"></script>
+    <script src="{$base}/js/carousel_img_cerveza.js"></script>
+    <script src="{$base}/js/comentarios_cerveza.js"></script>
 </html>

@@ -14,21 +14,27 @@
             parent::__construct();
         }
 
-#       TODO
-#       public function displayComentar() //GET.
-#       public function displayEditar() //GET.
-#       public function getComentariosCerveza($id_cerveza) //GET.
-
-##### HABRIA QUE REDIRECCIONAR SIENDO API CUANDO EL USER NO TIENE PERMISO ? (PREGUNTAR) #####
+        private function validData($arr,$key){//funcion privada para revisar 'Isset' (Envio $arr null para revisar $_POST).
+            if($arr==null){
+                return (isset($_POST[$key])&&$_POST[$key]!='');
+            }
+            return (isset($arr[$key])&&$arr[$key]!='');
+        }
 
         public function getComentarios($id_cerveza = null){ //GET.
+            if(!validData($id_cerveza,':ID_CERVEZA')){
+                return $this->view->response('Fallo al ingresar ID de cerveza',500);
+            }
             $comentarios = $this->model->getComentarios($id_cerveza[':ID_CERVEZA']);
             return $this->view->response($comentarios,200);
         }
 
         public function addComentario($id_cerveza = null){ //POST.
-            $id_cerveza = $id_cerveza[':ID_CERVEZA'];
+            if(!validData($id_cerveza,':ID_CERVEZA')){
+                return $this->view->response('Fallo al ingresar ID de cerveza',500);
+            }
             if(islogged()){
+                $id_cerveza = $id_cerveza[':ID_CERVEZA'];
                 $data = $this->getData();
                 $texto = $data->texto;
                 $valoracion = $data->valoracion;
@@ -40,6 +46,10 @@
             }
         }
         public function deleteComentario(){ //POST.
+            if(!validData(null,'id_comentario')){
+                return $this->view->response("Fallo al ingresar ID de Comentario",500);
+            }
+            
             $id_comentario = $_POST['id_comentario'];
             if($this->model->getUserId($id_comentario)==''){
                 return $this->view->response("Comentario no  encontrado",404);
@@ -52,14 +62,20 @@
             }
         }
         public function editComentario(){ //POST.
+            $data = $this->getData();
+
+            if(!validData(null,'id_comentario')||!validData($data,'valoracion')||!validData($data,'texto')){
+                return $this->view->response("Fallo al ingresar la informacion del Comentario",500);
+            }
+
             $id_comentario = $_POST['id_comentario'];
             $id_usuario = $this->model->getUserId($id_comentario);
             if($id_usuario==''){
                 return $this->view->response("Comentario no  encontrado",404);
             }
             if( isLogged() && $id_usuario==getUserSessionId() ){
-                $valoracion = $_POST['valoracion'];
-                $texto = $_POST['texto'];
+                $valoracion = $data['valoracion'];
+                $texto = $data['texto'];
                 $this->model->editComentario($valoracion,$texto,$id_comentario);
                 return $this->view->response("Comentario editado correctamente",200);
             }else{
