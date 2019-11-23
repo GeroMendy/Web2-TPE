@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded",function(){
 
     console.log("Comentarios_cerveza.js Working...");
 
+    let intervalEliminar;
+
     let form_comentario = document.querySelector("#commentform");
     if(form_comentario !=null){
         form_comentario.addEventListener("submit",postComentario);
@@ -14,7 +16,6 @@ document.addEventListener("DOMContentLoaded",function(){
         data:{
             id_usuario_logged: '',
             comentarios: [],
-            url_eliminar: '',
             adminLogged: 0,
             promedio: 0
         }
@@ -42,9 +43,9 @@ document.addEventListener("DOMContentLoaded",function(){
 
         fetch(getUrlAddComentario(),paquete_post)
         .then(p=>{
-            setInterval(getComentarios(),300);
+            esperarParaComentarios();
             })
-        .catch(error=>console.log(error))
+        .catch(error=>console.log(error));
 
     }
 
@@ -56,14 +57,51 @@ document.addEventListener("DOMContentLoaded",function(){
             let valoracionTotal = 0;
             comentarios.forEach(com => {
                 valoracionTotal += Number.parseInt(com.valoracion);
+
             });
-            console.log(valoracionTotal+" / "+comentarios.length+" = "+valoracionTotal/comentarios.length);
             comentarios_vue.promedio = (valoracionTotal/comentarios.length);
+
+            //intervalEliminar = setInterval(100,linkearAnchorsEliminarComentario(comentarios));//genero un bucle porque los a no estan generados.
         })
         .catch(error => console.log(error));
         comentarios_vue.adminLogged = isAdmin();
         comentarios_vue.id_usuario_logged = getIdLogged();
-        comentarios_vue.url_eliminar = getUrlEliminar();
+    }
+    /*
+    function linkearAnchorsEliminarComentario(com){
+        let anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
+        console.log(anchors_eliminar);
+
+        if(anchors_eliminar.length==com.length){//Si cargaron todos los a, paro el bucle.
+            clearInterval(intervalEliminar);
+            console.log("interval terminado");
+        }
+        
+        for (let index = anchors_eliminar.length-1; index >= 0; index++){
+            anchors_eliminar[index].addEventListener("click",function(){
+                eliminarComentario(com[index].id_comentario);
+            });
+        }
+    }
+    */
+
+    function eliminarComentario(id_com){
+        console.log("Eliminando comentario "+id_com);
+        
+        let json={
+            "id_comentario":id_com
+        };
+        let paquete_post={
+            "method":"POST",
+            "mode":"cors",
+            "headers":{"Content-type":"application/json"},
+            "body": JSON.stringify(json)
+        };
+        fetch(getUrlEliminar(),paquete_post)
+        .then(p=>{
+            esperarParaComentarios();
+        })
+        .catch(error => console.log(error));
     }
 
     function isAdmin(){
@@ -104,6 +142,9 @@ document.addEventListener("DOMContentLoaded",function(){
         let fin = inicio + replaced.length;
         url = url.substring(0,inicio) + newPath + url.substring(fin,url.length);
         return url;
+    }
+    function esperarParaComentarios(){
+        setTimeout(getComentarios(),300);
     }
 
     getComentarios();

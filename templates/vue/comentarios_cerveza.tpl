@@ -7,7 +7,9 @@
             <legend>    <h2>{{com.usuario}}</h2>    </legend>
             <h3> Valoracion : {{com.valoracion}}/5</h3>
 
-            <a v-if="adminLogged=== '1' || id_usuario_logged===com.id_usuario" href={{url_eliminar}}>Eliminar comentario</a>
+            <a class="js_eliminar_comentario" v-if="adminLogged=== '1' || id_usuario_logged===com.id_usuario">
+                Eliminar comentario
+            </a>
             <p></br>{{com.texto}}</p>
         </fieldset>
 

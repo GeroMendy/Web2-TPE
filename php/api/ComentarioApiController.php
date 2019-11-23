@@ -14,7 +14,6 @@
             $this->model = new comentarios_model();
             parent::__construct();
         }
-
         public function getComentarios($id_cerveza = null){ //GET.
             if(!validData($id_cerveza,array(':ID_CERVEZA'))){
                 return $this->view->response('Fallo al ingresar ID de cerveza',500);
@@ -40,11 +39,12 @@
             }
         }
         public function deleteComentario(){ //POST.
-            if(!validData(null,array('id_comentario'))){
+
+            $data = $this->getData();
+            if(!validData($data,array('id_comentario'))){
                 return $this->view->response("Fallo al ingresar ID de Comentario",500);
             }
-            
-            $id_comentario = $_POST['id_comentario'];
+            $id_comentario = $data['id_comentario'];
             if($this->model->getUserId($id_comentario)==''){
                 return $this->view->response("Comentario no  encontrado",404);
             }
@@ -58,11 +58,11 @@
         public function editComentario(){ //POST.
             $data = $this->getData();
 
-            if(!validData(null,array('id_comentario','valoracion','texto'))){
+            if(!validData($data,array('id_comentario','valoracion','texto'))){
                 return $this->view->response("Fallo al ingresar la informacion del Comentario",500);
             }
 
-            $id_comentario = $_POST['id_comentario'];
+            $id_comentario = $data['id_comentario'];
             $id_usuario = $this->model->getUserId($id_comentario);
             if($id_usuario==''){
                 return $this->view->response("Comentario no  encontrado",404);
