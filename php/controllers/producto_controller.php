@@ -34,14 +34,6 @@
             header('Location: '.BASE_URL);
         }
 
-#funcion privada para revisar 'Isset',Funciona para post o para un arreglo local pero no para get(tampoco quiero pasar como string esa informacion)
-        private function validData($arr,$key){
-            if($arr==null){
-                return (isset($_POST[$key])&&$_POST[$key]!='');
-            }
-            return (isset($arr[$key])&&$arr[$key]!='');
-        }
-
         // Functions para Cerveza.
         
         private function redirectCerveza(){
@@ -78,7 +70,7 @@
             $this->cervezas_view->generateTable($list_cervezas,isAdmin(),$estilos);
         }
         public function addCerveza(){
-            if(!validData(null,'estilo') || !validData(null,'nombre') || !validData(null,'amargor') || !validData(null,'alcohol')){
+            if(!validData(null,array('estilo','nombre','amargor','alcohol'))){
                 //Pantalla de error.
                 $this->redirectCerveza();
             }
@@ -100,7 +92,7 @@
 
         public function eliminarImagen($params = null){
             if(isAdmin()){
-                if(!validData($params,':ID')||!validData($params,':ARCH')){
+                if(!validData($params,array(':ID',':ARCH'))){
                     //pantalla error.
                     $this->redirectCerveza();
                 }
@@ -131,7 +123,7 @@
 
         public function deleteCerveza($params = null){
             if(isAdmin()){
-                if(!validData($params,':ID')){
+                if(!validData($params,array(':ID'))){
                     //pantalla error.
                     $this->redirectCerveza();
                 }
@@ -145,7 +137,7 @@
 
         public function displayEditCerveza($params = null){
             if(isAdmin()){
-                if(!validData($params,':ID')){
+                if(!validData($params,array(':ID'))){
                     //pantalla error.
                     $this->redirectCerveza();
                 }
@@ -160,7 +152,7 @@
 
         public function editCerveza(){
             if(isAdmin()){
-                if(!validData(null,'estilo') || !validData(null,'nombre') || !validData(null,'amargor') || !validData(null,'alcohol') || !validData(null,'id_cerveza')){
+                if(!validData(null,array('estilo','nombre','amargor','alcohol','id_cerveza'))){
                     //pantalla error.
                     $this->redirectCerveza();
                 }
@@ -193,7 +185,7 @@
         }
         
         public function getEstilo($id_estilo = null){
-            if(!validData($params,':ID')){
+            if(!validData($params,array(':ID'))){
                 //pantalla error.
                 $this->redirectEstilo();
             }
@@ -204,8 +196,7 @@
         public function addEstilo(){
             if(isAdmin()){
 
-                if( !validData(null,'nombre') || !validData(null,'color') || !validData(null,'aroma') || !validData(null,'apariencia') || !validData(null,'sabor') 
-                || !validData(null,'amin') || !validData(null,'amax') || !validData(null,'almin') || !validData(null,'almax') ){      
+                if(!validData(null,array('nombre','color','aroma','apariencia','sabor','amin','amax','almin','almax'))){      
                     //pantalla error.
                     $this->redirectEstilo();
                 }
@@ -238,7 +229,7 @@
         public function deleteEstilo($id = null){
             if(isAdmin()){
                 
-                if(!validData($id,':ID')){
+                if(!validData($id,array(':ID'))){
                     //pantalla error.
                     $this->redirectEstilo();
                 }
@@ -251,7 +242,7 @@
 
         public function displayEditEstilo($id = null){
             if(isAdmin()){
-                if(!validData($id,':ID')){
+                if(!validData($id,array(':ID'))){
                     //pantalla error.
                     $this->redirectEstilo();
                 }
@@ -263,8 +254,7 @@
         }
         public function editEstilo(){
             if(isAdmin()){
-                if( !validData(null,'nombre') || !validData(null,'color') || !validData(null,'aroma') || !validData(null,'apariencia') || !validData(null,'sabor') 
-                || !validData(null,'amin') || !validData(null,'amax') || !validData(null,'almin') || !validData(null,'almax') || !validData(null,'id_estilo') ){      
+                if(!validData(null,array('nombre','color','aroma','apariencia','sabor','amin','amax','almin','almax','id_estilo'))){      
                     //pantalla error.
                     $this->redirectEstilo();
                 }

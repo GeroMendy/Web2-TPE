@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded",function(){
         let valoracion = form_comentario.getElementsByTagName("input").namedItem("valoracion").value;
         let texto = document.querySelector("#agregar_comentario_texto").value;
 
+        console.log("valoracion : "+valoracion);
+        
+
         let json = {
             "texto":texto,
             "valoracion":valoracion
@@ -55,7 +58,6 @@ document.addEventListener("DOMContentLoaded",function(){
                 valoracionTotal += Number.parseInt(com.valoracion);
             });
             console.log(valoracionTotal+" / "+comentarios.length+" = "+valoracionTotal/comentarios.length);
-            
             comentarios_vue.promedio = (valoracionTotal/comentarios.length);
         })
         .catch(error => console.log(error));

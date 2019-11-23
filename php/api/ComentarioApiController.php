@@ -3,6 +3,7 @@
     require_once "php/models/comentarios_model.php";
     require_once "php/helpers/session_helper.php";
     require_once "php/api/ApiController.php";
+    require_once "php/helpers/isset_helper.php";
     //SOME VIEW.
 
     class ComentarioApiController extends ApiController{
@@ -14,15 +15,8 @@
             parent::__construct();
         }
 
-        private function validData($arr,$key){//funcion privada para revisar 'Isset' (Envio $arr null para revisar $_POST).
-            if($arr==null){
-                return (isset($_POST[$key])&&$_POST[$key]!='');
-            }
-            return (isset($arr[$key])&&$arr[$key]!='');
-        }
-
         public function getComentarios($id_cerveza = null){ //GET.
-            if(!validData($id_cerveza,':ID_CERVEZA')){
+            if(!validData($id_cerveza,array(':ID_CERVEZA'))){
                 return $this->view->response('Fallo al ingresar ID de cerveza',500);
             }
             $comentarios = $this->model->getComentarios($id_cerveza[':ID_CERVEZA']);
@@ -30,7 +24,7 @@
         }
 
         public function addComentario($id_cerveza = null){ //POST.
-            if(!validData($id_cerveza,':ID_CERVEZA')){
+            if(!!validData(null,array(':ID_CERVEZA'))){
                 return $this->view->response('Fallo al ingresar ID de cerveza',500);
             }
             if(islogged()){
@@ -46,7 +40,7 @@
             }
         }
         public function deleteComentario(){ //POST.
-            if(!validData(null,'id_comentario')){
+            if(!validData(null,array('id_comentario'))){
                 return $this->view->response("Fallo al ingresar ID de Comentario",500);
             }
             
@@ -64,7 +58,7 @@
         public function editComentario(){ //POST.
             $data = $this->getData();
 
-            if(!validData(null,'id_comentario')||!validData($data,'valoracion')||!validData($data,'texto')){
+            if(!validData(null,array('id_comentario','valoracion','texto'))){
                 return $this->view->response("Fallo al ingresar la informacion del Comentario",500);
             }
 

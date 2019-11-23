@@ -1,7 +1,8 @@
 <?php
-    require_once ("php/models/cervezas_model.php");
-    require_once ("php/api/ApiController.php");
-    require_once ("php/api/JSONView.php");
+    require_once "php/models/cervezas_model.php";
+    require_once "php/api/ApiController.php";
+    require_once "php/api/JSONView.php";
+    require_once "php/helpers/isset_helper.php";
     
     class ProductoApiController extends ApiController{
         
@@ -17,8 +18,8 @@
             return $this->view->response($cervezas, 200);
           }
       
-          function getCerveza($params = []) {
-            if(!isset($params[':ID'])&&$params[':ID']==''){
+          function getCerveza($params = null) {
+            if(!validData($params,array(':ID'))){
                 return $this->view->response("Fallo al ingresar ID de cerveza",500);
             }
             $id=$params[':ID'];

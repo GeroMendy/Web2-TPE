@@ -2,6 +2,7 @@
 
     require_once "php/models/usuarios_model.php";
     require_once "php/helpers/session_helper.php";
+    require_once "php/helpers/isset_helper.php";
     require_once "php/views/usuarios_view.php";
     require_once "php/views/index_view.php";
 
@@ -25,15 +26,8 @@
             $this->indexview->displayIndex(isLogged(),isAdmin(),getUserSessionNombre());
         }
 
-        private function validData($arr,$key){//funcion 'isset', seteo $arr nulo para revisar $_POST.
-            if($arr==null){
-                return (isset($_POST[$key])&&$_POST[$key]!='');
-            }
-            return (isset($arr[$key])&&$arr[$key]!='');
-        }
-
         public function logIn(){
-            if( !validData(null,'email') || !validData(null,'password') ){
+            if(!validData(null,array('email','password'))){
                 //pantalla error
                 $this->displayIndex();
             }
@@ -49,7 +43,7 @@
         }
         
         public function register(){
-            if( !validData(null,'email') || !validData(null,'password') || !validData(null,'nombre')){
+            if(!validData(null,array('email','password','nombre'))){
                 //pantalla error
                 $this->displayIndex();
             }
@@ -76,7 +70,7 @@
         public function deleteUser($params = null){
             if(isAdmin()){
                     
-                if( !validData($params,':ID') ){
+                if(!validData($params,array(':ID'))){
                     //pantalla error
                     $this->displayIndex();
                 }
@@ -90,7 +84,7 @@
         public function toggleAdmin($params = null){
             if(isAdmin()){
                 
-                if( !validData($params,':ID') ){
+                if(!validData($params,array(':ID'))){
                     //pantalla error
                     $this->displayIndex();
                 }
