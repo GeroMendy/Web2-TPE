@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
     console.log("Comentarios_cerveza.js Working...");
 
-    let intervalEliminar;
-
     let form_comentario = document.querySelector("#commentform");
     if(form_comentario !=null){
         form_comentario.addEventListener("submit",postComentario);
@@ -38,7 +36,8 @@ document.addEventListener("DOMContentLoaded",function(){
         };
         fetch(getUrlAddComentario(),paquete_post)
         .then(p=>{
-            esperarParaComentarios();
+            console.log(p);
+            
             })
         .catch(error=>console.log(error));
     }
@@ -58,14 +57,14 @@ document.addEventListener("DOMContentLoaded",function(){
             else promedio =0;
             document.querySelector(".js_valoracion").innerHTML="Valoración promedio: "+Math.round(promedio);
             if (isAdmin())
-                intervalEliminar = setTimeout(funtion =>{linkearAnchorsEliminarComentario(comentarios)},200);//genero un bucle porque los button no estan generados.
+                setTimeout(funtion =>{linkearBotonesEliminarComentario(comentarios)},200);//Espero a que se generen los botones eliminar.
         })
         .catch(error => console.log(error));
         comentarios_vue.adminLogged = isAdmin();
         comentarios_vue.id_usuario_logged = getIdLogged();
     }
 
-    function linkearAnchorsEliminarComentario(com){
+    function linkearBotonesEliminarComentario(com){
         let anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
         while (anchors_eliminar.length!=com.length){
             anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
@@ -77,17 +76,21 @@ document.addEventListener("DOMContentLoaded",function(){
         }
     }
 
-    async function eliminarComentario(id_com){
+    function eliminarComentario(id_com){
+        console.log(id_com);
         console.log("Eliminando comentario "+id_com);
         let urlBorrar="api/comentario/eliminar/"+id_com;
+        let paquete_delete = {
+            "method":"GET",
+            "mode":"cors",
+            "headers":{"Content-type":"application/json"}
+        };
+
         let tit_anterior=document.title;
         document.title="Borrando...";
         try{
-            let prom=await fetch(urlBorrar,{"method":"delete"})
-            if (prom.ok){
-                getComentarios();
-                console.log("Borrado");
-            }
+            fetch(urlBorrar,paquete_delete)
+            .then(r=>console.log(r));
         }
         catch(error){console.log(error);}
         document.title=tit_anterior;
@@ -96,7 +99,7 @@ document.addEventListener("DOMContentLoaded",function(){
     async function borrar(id_delete){
         let urlborrar=url+"/"+id_delete;
         document.title="Borrando...";
-        try{let prom=await fetch(urlborrar,{"method":"delete"})
+        try{let prom=await fetch(urlborrar,{"method":'DELETE'})
         }
         catch(error){console.log(error);}
         document.title="Catalogo de Cervezas";

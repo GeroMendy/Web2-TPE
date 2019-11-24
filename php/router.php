@@ -9,13 +9,13 @@ class Route {
 
     public function __construct($url, $verb, $controller, $method){
         $this->url = $url;
-        $this->verb = $verb;
+        $this->verb = strtoupper($verb);
         $this->controller = $controller;
         $this->method = $method;
         $this->params = [];
     }
     public function match($url, $verb) {
-        if($this->verb != $verb){
+        if($this->verb != strtoupper($verb)){
             return false;
         }
         $partsURL = explode("/", trim($url,'/'));
