@@ -26,10 +26,6 @@ document.addEventListener("DOMContentLoaded",function(){
         
         let valoracion = form_comentario.getElementsByTagName("input").namedItem("valoracion").value;
         let texto = document.querySelector("#agregar_comentario_texto").value;
-
-        console.log("valoracion : "+valoracion);
-        
-
         let json = {
             "texto":texto,
             "valoracion":valoracion
@@ -40,13 +36,11 @@ document.addEventListener("DOMContentLoaded",function(){
             "headers":{"Content-type":"application/json"},
             "body": JSON.stringify(json)
         };
-
         fetch(getUrlAddComentario(),paquete_post)
         .then(p=>{
             esperarParaComentarios();
             })
         .catch(error=>console.log(error));
-
     }
 
     function getComentarios(){
@@ -55,54 +49,60 @@ document.addEventListener("DOMContentLoaded",function(){
         .then(comentarios => {
             comentarios_vue.comentarios = comentarios;
             let valoracionTotal = 0;
+            let promedio;
             comentarios.forEach(com => {
                 valoracionTotal += Number.parseInt(com.valoracion);
-
             });
-            comentarios_vue.promedio = (valoracionTotal/comentarios.length);
-
-            //intervalEliminar = setInterval(100,linkearAnchorsEliminarComentario(comentarios));//genero un bucle porque los a no estan generados.
+            if (comentarios.length!=0)
+                promedio = (valoracionTotal/comentarios.length);
+            else promedio =0;
+            document.querySelector(".js_valoracion").innerHTML="Valoración promedio: "+Math.round(promedio);
+            if (isAdmin())
+                intervalEliminar = setTimeout(funtion =>{linkearAnchorsEliminarComentario(comentarios)},200);//genero un bucle porque los button no estan generados.
         })
         .catch(error => console.log(error));
         comentarios_vue.adminLogged = isAdmin();
         comentarios_vue.id_usuario_logged = getIdLogged();
     }
-    /*
+
     function linkearAnchorsEliminarComentario(com){
         let anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
-        console.log(anchors_eliminar);
-
-        if(anchors_eliminar.length==com.length){//Si cargaron todos los a, paro el bucle.
-            clearInterval(intervalEliminar);
-            console.log("interval terminado");
+        while (anchors_eliminar.length!=com.length){
+            anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
         }
-        
-        for (let index = anchors_eliminar.length-1; index >= 0; index++){
-            anchors_eliminar[index].addEventListener("click",function(){
-                eliminarComentario(com[index].id_comentario);
+        for (let i = 0; i< anchors_eliminar.length; i++){
+            anchors_eliminar[i].addEventListener("click",function(){
+                eliminarComentario(com[i].id_comentario);
             });
         }
     }
-    */
 
-    function eliminarComentario(id_com){
+    async function eliminarComentario(id_com){
         console.log("Eliminando comentario "+id_com);
-        
-        let json={
-            "id_comentario":id_com
-        };
-        let paquete_post={
-            "method":"POST",
-            "mode":"cors",
-            "headers":{"Content-type":"application/json"},
-            "body": JSON.stringify(json)
-        };
-        fetch(getUrlEliminar(),paquete_post)
-        .then(p=>{
-            esperarParaComentarios();
-        })
-        .catch(error => console.log(error));
+        let urlBorrar="api/comentario/eliminar/"+id_com;
+        let tit_anterior=document.title;
+        document.title="Borrando...";
+        try{
+            let prom=await fetch(urlBorrar,{"method":"delete"})
+            if (prom.ok){
+                getComentarios();
+                console.log("Borrado");
+            }
+        }
+        catch(error){console.log(error);}
+        document.title=tit_anterior;
     }
+    
+    async function borrar(id_delete){
+        let urlborrar=url+"/"+id_delete;
+        document.title="Borrando...";
+        try{let prom=await fetch(urlborrar,{"method":"delete"})
+        }
+        catch(error){console.log(error);}
+        document.title="Catalogo de Cervezas";
+        mostrartabla();
+    }
+
 
     function isAdmin(){
         let input = document.querySelector("#isAdmin");
@@ -146,6 +146,5 @@ document.addEventListener("DOMContentLoaded",function(){
     function esperarParaComentarios(){
         setTimeout(getComentarios(),300);
     }
-
     getComentarios();
 });

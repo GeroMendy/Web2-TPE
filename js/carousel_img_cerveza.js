@@ -4,7 +4,6 @@ let timer;
 let x = document.getElementsByClassName("Slides");
 for (let j = 0; j < x.length; j++) {
     x[j].addEventListener("click",pasar);
-    esconderSlide(x[j]);
 }
 
 if (x.length>1) timer=setInterval(carousel, 3000);
@@ -18,12 +17,12 @@ function carousel() {
 }
 
 function esconderSlide(img){
-    img.removeClass(".visible");
-    img.addClass(".hidden");
+    img.classList.remove("visible");
+    img.classList.add("hidden");
 }
 function mostrarSlide(img){
-    img.removeClass(".hidden");
-    img.addClass(".visible");
+    img.classList.remove("hidden");
+    img.classList.add("visible");
 }
 
 function pasar(){
