@@ -2,9 +2,9 @@
     display: block;
     padding-left: 100px;
 }
-.hidden{
-    visibility: hidden;
+.js-ocultar{
+    display: none;
 }
-.visible{
-    visibility: visible;
+.js-mostrar{
+    display: block;
 }

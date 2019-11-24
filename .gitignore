@@ -1,5 +1,10 @@
-#Ignora templates compilados:
-templates_c/
+#Ignora templates compilados, pero no la carpeta:
+templates_c/*
+templates_c/.keep
 #Ignora la carpeta generada por XDebug:
 .vscode/
+#Ignora las imagenes, pero no la carpeta:
 img/cervezas/*.jpg
+img/cervezas/*.jpeg
+img/cervezas/*.png
+img/cervezas/.keep

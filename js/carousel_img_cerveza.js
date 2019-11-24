@@ -18,12 +18,12 @@ function carousel() {
 }
 
 function esconderSlide(img){
-    img.removeClass(".visible");
-    img.addClass(".hidden");
+    img.removeClass(".js-mostrar");
+    img.addClass(".js-ocultar");
 }
 function mostrarSlide(img){
-    img.removeClass(".hidden");
-    img.addClass(".visible");
+    img.removeClass(".js-ocultar");
+    img.addClass(".js-mostrar");
 }
 
 function pasar(){
