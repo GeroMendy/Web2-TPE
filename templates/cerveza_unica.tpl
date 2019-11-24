@@ -18,7 +18,7 @@
             {if !empty($cerveza->imagenes)}
                 <div>
                     {foreach from=$cerveza->imagenes item=imagen}
-                            <img class="Slides" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
+                            <img class="Slides hidden" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
                     {/foreach}
                 </div>
             {else} No hay imágenes para mostrar
@@ -27,6 +27,7 @@
             <h2>Estilo: {$cerveza->Estilo}</h2>
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
+            <h2 class="js_valoracion"></h2>
         </fieldset></br>
         {if $id_logged neq ''}
             <fieldset>
@@ -41,8 +42,9 @@
         <fieldset>
            <legend><h1>Comentarios</h1></legend>
 
-            {include file="templates/vue/comentarios_cerveza.tpl"}
+            {include file="vue/comentarios_cerveza.tpl"}
 
+            <!--inputs escondidos para estados-->
             <input class="hidden" id="id_logged" style="visibility:hidden" value={$id_logged}>
             <input class="hidden" id="isAdmin" style="visibility:hidden" value={$admin}> 
 

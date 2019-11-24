@@ -38,13 +38,13 @@
                 return $this->view->response("Usuario no Logueado" , 401);
             }
         }
-        public function deleteComentario(){ //POST.
 
+        public function deleteComentario($params=null){ //POST.
             $data = $this->getData();
             if(!validData($data,array('id_comentario'))){
                 return $this->view->response("Fallo al ingresar ID de Comentario",500);
             }
-            $id_comentario = $data['id_comentario'];
+            $id_comentario = $params[":ID"];
             if($this->model->getUserId($id_comentario)==''){
                 return $this->view->response("Comentario no  encontrado",404);
             }
@@ -55,6 +55,7 @@
                 return $this->view->response("El usuario no tiene permisos para eliminar este comentario",401);
             }
         }
+
         public function editComentario(){ //POST.
             $data = $this->getData();
 
