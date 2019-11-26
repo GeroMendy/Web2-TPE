@@ -76,12 +76,11 @@ document.addEventListener("DOMContentLoaded",function(){
         }
     }
 
-    function eliminarComentario(id_com){
-        console.log(id_com);
+    function eliminarComentario(id_com){    
         console.log("Eliminando comentario "+id_com);
-        let urlBorrar="api/comentario/eliminar/"+id_com;
+        let urlBorrar=getUrlEliminar(id_com);
         let paquete_delete = {
-            "method":"GET",
+            "method":"DELETE",
             "mode":"cors",
             "headers":{"Content-type":"application/json"}
         };
@@ -96,6 +95,7 @@ document.addEventListener("DOMContentLoaded",function(){
         document.title=tit_anterior;
     }
     
+    /*
     async function borrar(id_delete){
         let urlborrar=url+"/"+id_delete;
         document.title="Borrando...";
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded",function(){
         document.title="Catalogo de Cervezas";
         mostrartabla();
     }
-
+    */
 
     function isAdmin(){
         let input = document.querySelector("#isAdmin");
@@ -129,17 +129,25 @@ document.addEventListener("DOMContentLoaded",function(){
         let newPath = "api/comentario";
         return replaceUrl(replaced,newPath);
     }
-    function getUrlEliminar(){
-        let replaced = "cerveza";
-        let newPath = "api/comentario/eliminar";
-        return replaceUrl(replaced,newPath);
+    function getUrlEliminar(id_com){
+        let deleted = "cerveza";
+        let newPath = "api/comentario/eliminar/";
+        let url = deleteSubtringURL(deleted);
+
+        return url + newPath + id_com;
     }
     function getUrlAddComentario(){
         let replaced = "cerveza";
         let newPath = "api/comentario/agregar";
         return replaceUrl(replaced,newPath);
     }
-    function replaceUrl(replaced,newPath){
+    function deleteSubtringURL(deleted){    //Busca la ultima coincidencia y elimina todo desde ahi.
+        let url = window.location.pathname;
+        let position = url.lastIndexOf(deleted);
+        url = url.substring(0,position);
+        return url;
+    }
+    function replaceUrl(replaced,newPath){  //Busca la ultima coincidencia y la reemplaza, manteniendo el substring posterior.
         let url = window.location.pathname;
         let inicio = url.lastIndexOf(replaced);
         let fin = inicio + replaced.length;
