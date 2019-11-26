@@ -33,7 +33,7 @@
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
             <h2 class="js_valoracion"></h2>
         </fieldset></br>
-        {if $id_logged neq ''}
+        {if $logged}
             <fieldset>
                 <legend><h2>Comentar</h2></legend>                
                     <form id="commentform">
@@ -48,8 +48,8 @@
 
             {include file="vue/comentarios_cerveza.tpl"}
 
-            <input class="js-ocultar" id="id_logged" style="visibility:hidden" value={$id_logged}>
-            <input class="js-ocultar" id="isAdmin" style="visibility:hidden" value={$admin}> 
+            <input class="js-ocultar" id="js_logged" value={$logged}>
+            <input class="js-ocultar" id="js_admin" value={$admin}> 
 
         </fieldset>
     </body>

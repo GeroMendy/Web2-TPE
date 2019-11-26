@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded",function(){
     let comentarios_vue = new Vue({
         el: "#vue-comentarios",
         data:{
-            id_usuario_logged: '',
             comentarios: [],
+            usuario_logged: 0,
             adminLogged: 0,
             promedio: 0
         }
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded",function(){
         })
         .catch(error => console.log(error));
         comentarios_vue.adminLogged = isAdmin();
-        comentarios_vue.id_usuario_logged = getIdLogged();
+        comentarios_vue.id_usuario_logged = getLogged();
     }
 
     function linkearBotonesEliminarComentario(com){
@@ -81,8 +81,6 @@ document.addEventListener("DOMContentLoaded",function(){
         let urlBorrar=getUrlEliminar(id_com);
         let paquete_delete = {
             "method":"DELETE",
-            "mode":"cors",
-            "headers":{"Content-type":"application/json"}
         };
 
         let tit_anterior=document.title;
@@ -99,19 +97,19 @@ document.addEventListener("DOMContentLoaded",function(){
     }
     
     function isAdmin(){
-        let input = document.querySelector("#isAdmin");
+        let input = document.querySelector("#js_admin");
         if(input!=null){
             return input.value;
         }else{
             return false;
         }
     }
-    function getIdLogged(){
-        let input = document.querySelector("#id_logged");
+    function getLogged(){
+        let input = document.querySelector("#js_logged");
         if(input!=null){
             return input.value;
         }else{
-            return -1;
+            return false;
         }
     }
 
@@ -135,8 +133,7 @@ document.addEventListener("DOMContentLoaded",function(){
     function deleteSubtringURL(deleted){    //Busca la ultima coincidencia y elimina todo desde ahi.
         let url = window.location.pathname;
         let position = url.lastIndexOf(deleted);
-        url = url.substring(0,position);
-        return url;
+        return url.substring(0,position);
     }
     function replaceUrl(replaced,newPath){  //Busca la ultima coincidencia y la reemplaza, manteniendo el substring posterior.
         let url = window.location.pathname;
@@ -145,8 +142,6 @@ document.addEventListener("DOMContentLoaded",function(){
         url = url.substring(0,inicio) + newPath + url.substring(fin,url.length);
         return url;
     }
-    function esperarParaComentarios(){
-        setTimeout(getComentarios(),300);
-    }
+    
     getComentarios();
 });

@@ -4,6 +4,7 @@
     require_once "php/views/cervezas_view.php";
     require_once "php/views/estilos_view.php";
     require_once "php/helpers/session_helper.php";
+    require_once "php/helpers/isset_helper.php";
     require_once "php/views/index_view.php";
 
     // Controller para Cervezas y Estilos.
@@ -53,11 +54,11 @@
         }
 
         public function getCerveza($id_cerveza){
-            if( !isset($id_cerveza[':ID']) || $id_cerveza[':ID']=='' ){
+            if( !validData($id_cerveza,array(":ID")) ){
                 $this->redirectCerveza();
             }
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),getUserSessionId());
+            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),isLogged());
         }
         
         public function getCervezasByEstilo(){

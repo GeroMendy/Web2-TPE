@@ -27,12 +27,12 @@
             $this->plantilla->display("templates/edit_cerveza.tpl");
         }
 
-        public function displayCerveza($cerveza,$admin,$id_logged){
+        public function displayCerveza($cerveza,$admin,$logged){
             $this->plantilla->assign('titulo',$cerveza->nombre);
             $this->plantilla->assign('base',BASE_URL);
             $this->plantilla->assign('cerveza', $cerveza);
             $this->plantilla->assign('admin',$admin);
-            $this->plantilla->assign('id_logged',$id_logged);
+            $this->plantilla->assign('logged',$logged);
             $this->plantilla->display("templates/cerveza_unica.tpl");
         }
 

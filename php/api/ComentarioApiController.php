@@ -79,10 +79,11 @@
         private function puedeBorrar($id_comentario = null){
             if( isAdmin() ){ 
                 return true; //Puede ser borrado por admins.
-            }elseif( isLogged() ) {
+            }
+            /*elseif( isLogged() ) {
                 $id_usuario = $this->model->getUserId($id_comentario);
                 return $id_usuario==getUserSessionId(); //Puede ser borrado por el usuario del comentario.
-            }
+            }*/
             else{
                 return false;
             }
