@@ -7,16 +7,18 @@ $router = new Router();
 
 
 
+
 $router->addRoute('cerveza', 'GET', "ProductoApiController", "getCervezas");
 $router->addRoute('cerveza/:ID','GET', "ProductoApiController","getCerveza");
 
 $router->addRoute('comentario/agregar/:ID_CERVEZA','POST','ComentarioApiController','addComentario');
-$router->addRoute('comentario/eliminar','POST','ComentarioApiController','deleteComentario');
-$router->addRoute('comentario/editar/:ID_CERVEZA','GET','ComentarioApiController','displayEditComentario');
-$router->addRoute('comentario/editar/:ID_CERVEZA','POST','ComentarioApiController','editComentario');
+$router->addRoute('comentario/eliminar/:ID','GET','ComentarioApiController','deleteComentario');
+
 $router->addRoute('comentario/:ID_CERVEZA','GET','ComentarioApiController','getComentarios');
+
+
 
 
 $router->setDefaultRoute("ProductoApiController","getCervezas");  
 
-$router->route($_GET["resource"], $_SERVER['REQUEST_METHOD']);
+$router->route($_GET["resource"],$_SERVER['REQUEST_METHOD']);

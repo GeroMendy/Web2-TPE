@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
     console.log("Comentarios_cerveza.js Working...");
 
-    let intervalEliminar;
-
     let form_comentario = document.querySelector("#commentform");
     if(form_comentario !=null){
         form_comentario.addEventListener("submit",postComentario);
@@ -26,10 +24,6 @@ document.addEventListener("DOMContentLoaded",function(){
         
         let valoracion = form_comentario.getElementsByTagName("input").namedItem("valoracion").value;
         let texto = document.querySelector("#agregar_comentario_texto").value;
-
-        console.log("valoracion : "+valoracion);
-        
-
         let json = {
             "texto":texto,
             "valoracion":valoracion
@@ -40,13 +34,12 @@ document.addEventListener("DOMContentLoaded",function(){
             "headers":{"Content-type":"application/json"},
             "body": JSON.stringify(json)
         };
-
         fetch(getUrlAddComentario(),paquete_post)
         .then(p=>{
-            esperarParaComentarios();
+            console.log(p);
+            
             })
         .catch(error=>console.log(error));
-
     }
 
     function getComentarios(){
@@ -55,54 +48,64 @@ document.addEventListener("DOMContentLoaded",function(){
         .then(comentarios => {
             comentarios_vue.comentarios = comentarios;
             let valoracionTotal = 0;
+            let promedio;
             comentarios.forEach(com => {
                 valoracionTotal += Number.parseInt(com.valoracion);
-
             });
-            comentarios_vue.promedio = (valoracionTotal/comentarios.length);
-
-            //intervalEliminar = setInterval(100,linkearAnchorsEliminarComentario(comentarios));//genero un bucle porque los a no estan generados.
+            if (comentarios.length!=0)
+                promedio = (valoracionTotal/comentarios.length);
+            else promedio =0;
+            document.querySelector(".js_valoracion").innerHTML="Valoración promedio: "+Math.round(promedio);
+            if (isAdmin())
+                setTimeout(funtion =>{linkearBotonesEliminarComentario(comentarios)},200);//Espero a que se generen los botones eliminar.
         })
         .catch(error => console.log(error));
         comentarios_vue.adminLogged = isAdmin();
         comentarios_vue.id_usuario_logged = getIdLogged();
     }
-    /*
-    function linkearAnchorsEliminarComentario(com){
-        let anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
-        console.log(anchors_eliminar);
 
-        if(anchors_eliminar.length==com.length){//Si cargaron todos los a, paro el bucle.
-            clearInterval(intervalEliminar);
-            console.log("interval terminado");
+    function linkearBotonesEliminarComentario(com){
+        let anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
+        while (anchors_eliminar.length!=com.length){
+            anchors_eliminar=document.querySelectorAll(".js_eliminar_comentario");
         }
-        
-        for (let index = anchors_eliminar.length-1; index >= 0; index++){
-            anchors_eliminar[index].addEventListener("click",function(){
-                eliminarComentario(com[index].id_comentario);
+        for (let i = 0; i< anchors_eliminar.length; i++){
+            anchors_eliminar[i].addEventListener("click",function(){
+                eliminarComentario(com[i].id_comentario);
             });
         }
     }
-    */
 
-    function eliminarComentario(id_com){
+    function eliminarComentario(id_com){    
         console.log("Eliminando comentario "+id_com);
-        
-        let json={
-            "id_comentario":id_com
-        };
-        let paquete_post={
-            "method":"POST",
+        let urlBorrar=getUrlEliminar(id_com);
+        let paquete_delete = {
+            "method":"DELETE",
             "mode":"cors",
-            "headers":{"Content-type":"application/json"},
-            "body": JSON.stringify(json)
+            "headers":{"Content-type":"application/json"}
         };
-        fetch(getUrlEliminar(),paquete_post)
-        .then(p=>{
-            esperarParaComentarios();
-        })
-        .catch(error => console.log(error));
+
+        let tit_anterior=document.title;
+        document.title="Borrando...";
+        try{
+            fetch(urlBorrar,paquete_delete)
+            .then(r=>console.log(r));
+        }
+        catch(error){console.log(error);}
+        document.title=tit_anterior;
     }
+    
+    /*
+    async function borrar(id_delete){
+        let urlborrar=url+"/"+id_delete;
+        document.title="Borrando...";
+        try{let prom=await fetch(urlborrar,{"method":'DELETE'})
+        }
+        catch(error){console.log(error);}
+        document.title="Catalogo de Cervezas";
+        mostrartabla();
+    }
+    */
 
     function isAdmin(){
         let input = document.querySelector("#isAdmin");
@@ -126,17 +129,25 @@ document.addEventListener("DOMContentLoaded",function(){
         let newPath = "api/comentario";
         return replaceUrl(replaced,newPath);
     }
-    function getUrlEliminar(){
-        let replaced = "cerveza";
-        let newPath = "api/comentario/eliminar";
-        return replaceUrl(replaced,newPath);
+    function getUrlEliminar(id_com){
+        let deleted = "cerveza";
+        let newPath = "api/comentario/eliminar/";
+        let url = deleteSubtringURL(deleted);
+
+        return url + newPath + id_com;
     }
     function getUrlAddComentario(){
         let replaced = "cerveza";
         let newPath = "api/comentario/agregar";
         return replaceUrl(replaced,newPath);
     }
-    function replaceUrl(replaced,newPath){
+    function deleteSubtringURL(deleted){    //Busca la ultima coincidencia y elimina todo desde ahi.
+        let url = window.location.pathname;
+        let position = url.lastIndexOf(deleted);
+        url = url.substring(0,position);
+        return url;
+    }
+    function replaceUrl(replaced,newPath){  //Busca la ultima coincidencia y la reemplaza, manteniendo el substring posterior.
         let url = window.location.pathname;
         let inicio = url.lastIndexOf(replaced);
         let fin = inicio + replaced.length;
@@ -146,6 +157,5 @@ document.addEventListener("DOMContentLoaded",function(){
     function esperarParaComentarios(){
         setTimeout(getComentarios(),300);
     }
-
     getComentarios();
 });

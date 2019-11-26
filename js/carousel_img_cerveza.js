@@ -4,7 +4,6 @@ let timer;
 let x = document.getElementsByClassName("Slides");
 for (let j = 0; j < x.length; j++) {
     x[j].addEventListener("click",pasar);
-    esconderSlide(x[j]);
 }
 
 if (x.length>1) timer=setInterval(carousel, 3000);
