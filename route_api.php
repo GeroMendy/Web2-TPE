@@ -12,7 +12,7 @@ $router->addRoute('cerveza', 'GET', "ProductoApiController", "getCervezas");
 $router->addRoute('cerveza/:ID','GET', "ProductoApiController","getCerveza");
 
 $router->addRoute('comentario/agregar/:ID_CERVEZA','POST','ComentarioApiController','addComentario');
-$router->addRoute('comentario/eliminar/:ID','GET','ComentarioApiController','deleteComentario');
+$router->addRoute('comentario/eliminar/:ID','DELETE','ComentarioApiController','deleteComentario');
 
 $router->addRoute('comentario/:ID_CERVEZA','GET','ComentarioApiController','getComentarios');
 

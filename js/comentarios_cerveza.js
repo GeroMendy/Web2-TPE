@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded",function(){
         };
         fetch(getUrlAddComentario(),paquete_post)
         .then(p=>{
-            console.log(p);
-            
-            })
+            console.log("Comentario Agregado Correctamente.");
+            getComentarios();
+        })
         .catch(error=>console.log(error));
     }
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded",function(){
         for (let i = 0; i< anchors_eliminar.length; i++){
             anchors_eliminar[i].addEventListener("click",function(){
                 eliminarComentario(com[i].id_comentario);
-            });
+            },{once:true});
         }
     }
 
@@ -89,24 +89,15 @@ document.addEventListener("DOMContentLoaded",function(){
         document.title="Borrando...";
         try{
             fetch(urlBorrar,paquete_delete)
-            .then(r=>console.log(r));
+            .then(r=>{
+                console.log("Eliminado Comentario "+id_com);
+                getComentarios();
+            });
         }
         catch(error){console.log(error);}
         document.title=tit_anterior;
     }
     
-    /*
-    async function borrar(id_delete){
-        let urlborrar=url+"/"+id_delete;
-        document.title="Borrando...";
-        try{let prom=await fetch(urlborrar,{"method":'DELETE'})
-        }
-        catch(error){console.log(error);}
-        document.title="Catalogo de Cervezas";
-        mostrartabla();
-    }
-    */
-
     function isAdmin(){
         let input = document.querySelector("#isAdmin");
         if(input!=null){
