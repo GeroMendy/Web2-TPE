@@ -6,6 +6,7 @@ require_once("php/api/ComentarioApiController.php");
 $router = new Router();
 
 
+$router->addRoute('datetime', 'GET', "ComentarioApiController", "datetime");
 
 
 $router->addRoute('cerveza', 'GET', "ProductoApiController", "getCervezas");

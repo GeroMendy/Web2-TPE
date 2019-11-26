@@ -14,11 +14,25 @@
             $this->model = new comentarios_model();
             parent::__construct();
         }
-        public function getComentarios($id_cerveza = null){ //GET.
-            if(!validData($id_cerveza,array(':ID_CERVEZA'))){
+
+        //TESTING.
+        public function datetime(){
+            $date = $this->model->getSQLDate();
+        }
+
+        public function getComentarios($params = null){ //GET.
+
+            if(!validData($params,array(':ID_CERVEZA'))){
                 return $this->view->response('Fallo al ingresar ID de cerveza',500);
             }
-            $comentarios = $this->model->getComentarios($id_cerveza[':ID_CERVEZA']);
+            $sort = '';
+            $order = '';
+            if (isset($_GET['sort'])) {
+                $sort = $_GET['sort'];
+            }if (isset($_GET['order'])) {
+                $order = $_GET['order'];
+            }
+            $comentarios = $this->model->getComentarios($params[':ID_CERVEZA'],$sort,$order);
             return $this->view->response($comentarios,200);
         }
 

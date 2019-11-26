@@ -14,27 +14,30 @@ class comentarios_model{
         $this->buscarComentarioByID = $this->table.' WHERE id_comentario=?';
     }
 
-    public function getComentarios($id_cerveza){//Siempre se llama desde la pagina de una cerveza idividual.
-        $select = $this->db->prepare($this->selectBase);
-        $select->execute(array($id_cerveza));
+    public function getComentarios($id_cerveza,$sort,$order){//Siempre se llama desde la pagina de una cerveza idividual.
+        $arr = array($id_cerveza);
+        $sql = $this->selectBase;
+        if($sort!=''){
+            $sql .= " SORTED BY ?";
+            array_push($arr,$sort);
+        }
+        if ($order!='') {
+            $sql .= " ORDER ?";
+            array_push($arr,$order);
+        }
+        $select = $this->db->prepare($sql);
+        $select->execute($arr);
         $comentarios = $select->fetchAll(PDO::FETCH_OBJ);
         return $comentarios;
     }
-    public function getComemtariosSortedByValoracion($id_cerveza){
-        $select = $this->db->prepare($this->selectBase . ' SORTED BY valoracion DESC');
-        $select->execute(array($id_cerveza));
-        $comentarios = $select->fetchAll(PDO::FETCH_OBJ);
-        return $comentarios;
-    }
-    
 
     public function addComentario($id_usuario,$id_cerveza,$valoracion,$texto){
-        $insert = $this->db->prepare('INSERT INTO '.$this->table.' (id_usuario,id_cerveza,valoracion,texto) VALUES (?,?,?,?)');
-        $insert->execute(array($id_usuario,$id_cerveza,$valoracion,$texto));
+        $insert = $this->db->prepare('INSERT INTO '.$this->table.' (id_usuario,id_cerveza,valoracion,texto,fecha) VALUES (?,?,?,?,?)');
+        $insert->execute(array($id_usuario,$id_cerveza,$valoracion,$texto,getSQLDate()));
     }
     public function editComentario($valoracion,$texto,$id_comentario){//La cerveza y el usuario del comentario nunca cambian.
-        $update = $this->db->prepare('UPDATE '.$this->table.' SET valoracion=?, texto=? WHERE id_comentario=?');
-        $update->execute(array($valoracion,$texto,$id_comentario));
+        $update = $this->db->prepare('UPDATE '.$this->table.' SET valoracion=?, texto=?, fecha=? WHERE id_comentario=?');
+        $update->execute(array($valoracion,$texto,getdate(),$id_comentario));
     }
     public function deleteComentario($id_comentario){
         $delete = $this->db->prepare('DELETE FROM '.$this->buscarComentarioByID);
@@ -50,4 +53,21 @@ class comentarios_model{
         $select->execute(array($id_comentario));
         return $select->fetch(PDO::FETCH_COLUMN);
     }
+    public function getSQLDate(){
+        $date = getdate();
+        var_dump($date);
+        echo "</br>";
+        $date = $date['year']."-".$date['mon']."-".$date['mday']." ".$date['hours'].":".$date['minutes'].":".$date['seconds'];
+        var_dump($date);
+        echo "</br>";
+        $sql = $this->db->prepare('SELECT CONVERT(datetime,'.$date.',120)');
+        var_dump($sql);
+        echo "</br>";
+        $date = $sql->execute();
+        var_dump($date);
+        echo "</br>";
+        return $date;
+    }
+
+
 }

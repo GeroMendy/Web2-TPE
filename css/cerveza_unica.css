@@ -7,3 +7,9 @@
 .js-mostrar{
     display: block;
 }
+.js-sorter{
+    margin: 0 1%;
+}
+.contendor-sorter{
+    padding: 0;
+}

@@ -18,11 +18,7 @@
             {if !empty($cerveza->imagenes)}
                 <div>
                     {foreach from=$cerveza->imagenes item=imagen}
-<<<<<<< HEAD
                             <img class="Slides js-ocultar" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
-=======
-                            <img class="Slides hidden" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
->>>>>>> hardcodeandoEliminar
                     {/foreach}
                 </div>
             {else} No hay imágenes para mostrar
@@ -44,8 +40,19 @@
             </fieldset>
         {/if}
         <fieldset>
-           <legend><h1>Comentarios</h1></legend>
-
+            <legend><h2>Comentarios</h2></legend>
+            <div class="contenedor-sorter">
+                <a class="js-sorter">
+                    Fecha
+                    <img class="js-ocultar js-img-sort-comentarios">
+                    <img class="js-ocultar js-img-sort-comentarios">
+                </a>
+                <a class="js-sorter">
+                    Valoracion
+                    <img class="js-ocultar js-img-sort-comentarios">
+                    <img class="js-ocultar js-img-sort-comentarios">
+                </a>
+            </div>
             {include file="vue/comentarios_cerveza.tpl"}
 
             <input class="js-ocultar" id="js_logged" value={$logged}>

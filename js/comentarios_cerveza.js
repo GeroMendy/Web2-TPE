@@ -4,10 +4,13 @@ document.addEventListener("DOMContentLoaded",function(){
 
     console.log("Comentarios_cerveza.js Working...");
 
+    let base_url=getUrlComentariosSortedDateAsc();
+    
     let form_comentario = document.querySelector("#commentform");
     if(form_comentario !=null){
         form_comentario.addEventListener("submit",postComentario);
     }
+    //let botones_ordenar=
 
     let comentarios_vue = new Vue({
         el: "#vue-comentarios",
@@ -43,7 +46,7 @@ document.addEventListener("DOMContentLoaded",function(){
     }
 
     function getComentarios(){
-        fetch( getUrlgetComentarios() )
+        fetch( base_url )
         .then(response => response.json())
         .then(comentarios => {
             comentarios_vue.comentarios = comentarios;
@@ -113,10 +116,24 @@ document.addEventListener("DOMContentLoaded",function(){
         }
     }
 
-    function getUrlgetComentarios(){
+    function getUrlComentariosSortedDateDesc(){
         let replaced = "cerveza";
         let newPath = "api/comentario";
-        return replaceUrl(replaced,newPath);
+        let url = replaceUrl(replaced,newPath);
+        return url;
+    }
+    function getUrlComentariosSortedDateAsc(){
+        return getUrlComentariosSortedDateDesc()+"/?sorted=date?order=asc";
+    }
+    function getUrlComentariosSortedValDesc(){
+        let replaced = "cerveza";
+        let newPath = "api/comentario";
+        let url = replaceUrl(replaced,newPath);
+        url +="/?sorted=val";
+        return url;
+    }
+    function getUrlComentariosSortedValAsc(){
+        return getUrlComentariosSortedValDesc()+"?order=asc";
     }
     function getUrlEliminar(id_com){
         let deleted = "cerveza";
