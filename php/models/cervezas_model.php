@@ -1,11 +1,15 @@
 <?php
 class cervezas_model{
     private $db;
-    private $tabla="cerveza";
-    private $tabla_img="imagen";
+    private $tabla;
+    private $tabla_img;
+    private $img_dir;
 
     public function __construct(){
         $this->db=new PDO('mysql:host=localhost;'.'dbname=db_mendyusunoff;charset=utf8','root','');
+        $this->img_dir="img/cervezas/";
+        $this->tabla="cerveza";
+        $this->tabla_img="imagen";
     }
     
     public function getCervezas(){
@@ -59,37 +63,25 @@ class cervezas_model{
         $insert = $this->db->prepare("INSERT INTO ".$this->tabla." (nombre,id_estilo,amargor,alcohol) VALUES(?,?,?,?)");
         $insert->execute(array($nombre,$id_estilo,$amargor,$alcohol));
         $id=$this->db->lastInsertId();
-        if (($_FILES["imagesToUpload"]["size"][0] !=0))  //hay otra forma mejor de hacerlo?
-            $imagenes=$_FILES["imagesToUpload"]["tmp_name"];
-        else $imagenes=null;
-        if ($imagenes!=null){
-            $sentencia_img= $this->db->prepare("INSERT INTO ".$this->tabla_img." (archivo,id_cerveza) VALUES(?,?)");
-            foreach($imagenes as $key=>$tmp_name)
-            {   
-                $uid=uniqid(random_int(0,255)).".jpg";
-                $destino = "img/cervezas/".$uid;
-                move_uploaded_file($tmp_name,$destino);
-                $sentencia_img->execute([$uid,$id]);
-            }
-        }  
+        $this->addImagenes($id); 
     }
 
     public function updateCerveza($nombre,$id_estilo,$amargor,$alcohol,$id_cerveza){
         $update = $this->db->prepare("UPDATE ".$this->tabla." SET nombre=?, id_estilo=?, amargor=?, alcohol=? WHERE id_cerveza=?");
         $update->execute(array($nombre,$id_estilo,$amargor,$alcohol,$id_cerveza));
-        if (($_FILES["imagesToUpload"]["size"][0] !=0)) //hay otra forma mejor de hacerlo?
+        $this->addImagenes($id_cerveza);
+    }
+    private function addImagenes($id_cerveza){
+        if (($_FILES["imagesToUpload"]["size"][0] !=0)){//hay otra forma mejor de hacerlo?
             $imagenes=$_FILES["imagesToUpload"]["tmp_name"];
-        else $imagenes=null;
-        if ($imagenes!=null){
             $sentencia_img= $this->db->prepare("INSERT INTO ".$this->tabla_img." (archivo,id_cerveza) VALUES(?,?)");
-            foreach($imagenes as $key=>$tmp_name)
-            {   
-                $uid=uniqid(random_int(0,255)).".jpg";
-                $destino = "img/cervezas/".$uid;
+            foreach($imagenes as $key=>$tmp_name){   
+                $uid=(string)uniqid(random_int(0,255)).".jpg";
+                $destino = $this->img_dir . $uid;
                 move_uploaded_file($tmp_name,$destino);
                 $sentencia_img->execute([$uid,$id_cerveza]);
             }
-    }
+        }
     }
 
     public function deleteCerveza($id_cerveza){
@@ -105,7 +97,7 @@ class cervezas_model{
     }
 
     public function deleteImagen($id,$img){
-        $arch="img/cervezas/".$img;
+        $arch=$this->img_dir . $img;
         if (file_exists($arch))
              unlink($arch);
         $delete = $this->db->prepare("DELETE FROM ".$this->tabla_img." WHERE (archivo=? AND id_cerveza=?)");

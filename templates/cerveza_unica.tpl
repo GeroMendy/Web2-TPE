@@ -18,11 +18,7 @@
             {if !empty($cerveza->imagenes)}
                 <div>
                     {foreach from=$cerveza->imagenes item=imagen}
-<<<<<<< HEAD
-                            <img class="Slides js-ocultar" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
-=======
-                            <img class="Slides hidden" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
->>>>>>> hardcodeandoEliminar
+                        <img class="Slides js-ocultar" src="{$base}/img/cervezas/{$imagen->archivo}" width="400">
                     {/foreach}
                 </div>
             {else} No hay imágenes para mostrar
