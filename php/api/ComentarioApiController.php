@@ -23,7 +23,7 @@
         }
 
         public function addComentario($id_cerveza = null){ //POST.
-            if(!!validData(null,array(':ID_CERVEZA'))){
+            if(!validData($id_cerveza,array(':ID_CERVEZA'))){
                 return $this->view->response('Fallo al ingresar ID de cerveza',500);
             }
             if(islogged()){
@@ -54,28 +54,25 @@
                 return $this->view->response("El usuario no tiene permisos para eliminar este comentario",401);
             }
         }
-
+        /*
         public function editComentario(){ //POST.
             $data = $this->getData();
 
-            if(!validData($data,array('id_comentario','valoracion','texto'))){
-                return $this->view->response("Fallo al ingresar la informacion del Comentario",500);
-            }
-
-            $id_comentario = $data['id_comentario'];
+            $id_comentario = $data->id_comentario;
             $id_usuario = $this->model->getUserId($id_comentario);
             if($id_usuario==''){
                 return $this->view->response("Comentario no  encontrado",404);
             }
             if( isLogged() && $id_usuario==getUserSessionId() ){
-                $valoracion = $data['valoracion'];
-                $texto = $data['texto'];
+                $valoracion = $data->valoracion;
+                $texto = $data->texto;
                 $this->model->editComentario($valoracion,$texto,$id_comentario);
                 return $this->view->response("Comentario editado correctamente",200);
             }else{
                 return $this->view->response("El usuario no tiene permisos para editar este comentario",401);
             }
         }
+        */
         private function puedeBorrar($id_comentario = null){
             if( isAdmin() ){ 
                 return true; //Puede ser borrado por admins.

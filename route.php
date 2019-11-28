@@ -44,7 +44,6 @@
     //Cervezas
 
     //Estilos
-    $router->addRoute("estilo","GET",PROD_C,"getEstilos");
 
     $router->addRoute("estilo/editar/:ID","GET",PROD_C,"displayEditEstilo"); 
     $router->addRoute("estilo/editar/:ID", "POST", PROD_C, "editEstilo");
@@ -55,6 +54,7 @@
     $router->addRoute("estilo/agregar","POST",PROD_C,"addEstilo");
 
     $router->addRoute("estilo/:ID","GET",PROD_C,"getEstilo");
+    $router->addRoute("estilo","GET",PROD_C,"getEstilos");
     //Estilos
     
     $router->setDefaultRoute(PROD_C,"index");    

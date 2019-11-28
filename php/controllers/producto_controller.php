@@ -186,7 +186,7 @@
         }
         
         public function getEstilo($id_estilo = null){
-            if(!validData($params,array(':ID'))){
+            if(!validData($id_estilo,array(':ID'))){
                 //pantalla error.
                 $this->redirectEstilo();
             }
