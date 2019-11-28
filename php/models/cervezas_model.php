@@ -74,9 +74,10 @@ class cervezas_model{
     private function addImagenes($id_cerveza){
         if (($_FILES["imagesToUpload"]["size"][0] !=0)){//hay otra forma mejor de hacerlo?
             $imagenes=$_FILES["imagesToUpload"]["tmp_name"];
+            $nombres=$_FILES["imagesToUpload"]["name"];
             $sentencia_img= $this->db->prepare("INSERT INTO ".$this->tabla_img." (archivo,id_cerveza) VALUES(?,?)");
             foreach($imagenes as $key=>$tmp_name){   
-                $uid=(string)uniqid(random_int(0,255)).".jpg";
+                $uid=(string) uniqid(random_int(0,255)) . $nombres[$key];
                 $destino = $this->img_dir . $uid;
                 move_uploaded_file($tmp_name,$destino);
                 $sentencia_img->execute([$uid,$id_cerveza]);

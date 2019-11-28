@@ -106,7 +106,7 @@
 
         private function sonIMG($imagenesTipos){
             foreach ($imagenesTipos as $tipo) {
-              if($tipo != ('image/jpeg'||'image/jpeg')) {
+              if($tipo != ('image/jpeg'||'image/jpg'||'image/png')) {
                 return false;
               }
             }
@@ -197,7 +197,7 @@
         public function addEstilo(){
             if(isAdmin()){
 
-                if(!validData(null,array('nombre','color','aroma','apariencia','sabor','amin','amax','almin','almax'))){      
+                if(!validData(null,array('nombre','color','aroma','apariencia','sabor','amin','amax','almin','almax'))){
                     //pantalla error.
                     $this->redirectEstilo();
                 }
