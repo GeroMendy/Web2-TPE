@@ -31,11 +31,11 @@ class comentarios_model{
     public function addComentario($id_usuario,$id_cerveza,$valoracion,$texto){
         $insert = $this->db->prepare('INSERT INTO '.$this->table.' (id_usuario,id_cerveza,valoracion,texto) VALUES (?,?,?,?)');
         $insert->execute(array($id_usuario,$id_cerveza,$valoracion,$texto));
-    }
+    }/*
     public function editComentario($valoracion,$texto,$id_comentario){//La cerveza y el usuario del comentario nunca cambian.
         $update = $this->db->prepare('UPDATE '.$this->table.' SET valoracion=?, texto=? WHERE id_comentario=?');
         $update->execute(array($valoracion,$texto,$id_comentario));
-    }
+    }*/
     public function deleteComentario($id_comentario){
         $delete = $this->db->prepare('DELETE FROM '.$this->buscarComentarioByID);
         $delete->execute(array($id_comentario));

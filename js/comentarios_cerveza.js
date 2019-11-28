@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded",function(){
             comentarios.forEach(com => {
                 valoracionTotal += Number.parseInt(com.valoracion);
             });
-            if (comentarios.length!=0)
+            if (comentarios.length>0)
                 promedio = (valoracionTotal/comentarios.length);
             else promedio =0;
             document.querySelector("#js_valoracion").innerHTML="Valoración promedio: "+(Math.round(promedio*100)/100+" / 5");
@@ -149,10 +149,12 @@ document.addEventListener("DOMContentLoaded",function(){
     document.querySelector("#agregar_comentario_texto").addEventListener("click",easterEgg);
     let activado=false;
     function easterEgg(){
+        console.log("HACKERMAN");
+        
         let text=document.querySelector("#agregar_comentario_texto").value;
-        if (text==="juan codigo"){
+        if (text.toLowerCase()==="juan codigo"){
             if (!activado){
-                let imgs=document.getElementsByTagName("img");
+                let imgs=document.querySelectorAll(".Slides");
                 for (let i =0; i<imgs.length;i++){
                     let source= imgs[i].src;
                     imgs[i].src=source.substring(0,source.lastIndexOf("cervezas"))+"juancodigo.jpg";

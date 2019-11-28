@@ -86,15 +86,23 @@ class cervezas_model{
     }
 
     public function deleteCerveza($id_cerveza){
+        $this->deleteAllImgs($id_cerveza); //Elimina todas las imagenes asociadas.
+        $this->deleteAllComments($id_cerveza);//Elimina todos los comentarios asociados.
         $delete = $this->db->prepare("DELETE FROM ".$this->tabla." WHERE id_cerveza=?");
         $delete->execute(array($id_cerveza));
+
+    }
+    private function deleteAllImgs($id_cerveza){
         $imgQuery=$this->db->prepare("SELECT archivo FROM " .$this->tabla_img. " WHERE id_cerveza=?");
         $imgQuery->execute(array($id_cerveza));
         $imagenes = $imgQuery->fetchAll(PDO::FETCH_OBJ);
         foreach ($imagenes as $img){
             $this->deleteImagen($id_cerveza,$img->archivo);
         }
-
+    }
+    private function deleteAllComments($id_cerveza){
+        $delete = $this->db->prepare("DELETE FROM comentario WHERE id_cerveza=?");
+        $delete->execute(array($id_cerveza));
     }
 
     public function deleteImagen($id,$img){
