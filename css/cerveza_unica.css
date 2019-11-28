@@ -1,10 +1,10 @@
 .Slides {
     padding-left: 100px;
 }
-.js-ocultar{
+.hidden{
     display: none;
 }
-.js-mostrar{
+.visible{
     display: block;
 }
 

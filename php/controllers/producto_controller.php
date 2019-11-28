@@ -4,7 +4,6 @@
     require_once "php/views/cervezas_view.php";
     require_once "php/views/estilos_view.php";
     require_once "php/helpers/session_helper.php";
-    require_once "php/helpers/isset_helper.php";
     require_once "php/views/index_view.php";
 
     // Controller para Cervezas y Estilos.
@@ -54,11 +53,11 @@
         }
 
         public function getCerveza($id_cerveza){
-            if( !validData($id_cerveza,array(":ID")) ){
+            if( !isset($id_cerveza[':ID']) || $id_cerveza[':ID']=='' ){
                 $this->redirectCerveza();
             }
             $cerveza = $this->cervezas_model->getCerveza($id_cerveza[":ID"]);
-            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),isLogged());
+            $this->cervezas_view->displayCerveza($cerveza,isAdmin(),getUserSessionId());
         }
         
         public function getCervezasByEstilo(){
@@ -186,7 +185,7 @@
         }
         
         public function getEstilo($id_estilo = null){
-            if(!validData($id_estilo,array(':ID'))){
+            if(!validData($params,array(':ID'))){
                 //pantalla error.
                 $this->redirectEstilo();
             }
@@ -197,7 +196,7 @@
         public function addEstilo(){
             if(isAdmin()){
 
-                if(!validData(null,array('nombre','color','aroma','apariencia','sabor','amin','amax','almin','almax'))){
+                if(!validData(null,array('nombre','color','aroma','apariencia','sabor','amin','amax','almin','almax'))){      
                     //pantalla error.
                     $this->redirectEstilo();
                 }
