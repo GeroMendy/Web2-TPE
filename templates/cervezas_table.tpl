@@ -50,35 +50,35 @@
             </div>
         </div>
             {foreach from=$cervezas item=cer}
-                <div class="row">
-                    <div class="col-sm border border-secondary text-center">
-                        {$cer->id_cerveza}  
-                    </div>
-                    <div class="col-sm border border-secondary text-center">
-                        {$cer->nombre}  
-                    </div>
-                    <div class="col-sm border border-secondary text-center">
-                        {if $cer->imagen neq ""}
-                            <img src="{$base}/img/cervezas/{$cer->imagen}" height="60">
-                        {/if}
-                    </div>
-                    <div class="col-sm border border-secondary text-center">
-                        {$cer->Estilo}  
-                    </div>
-                    <div class="col-sm border border-secondary text-center">
-                        {$cer->amargor}  
-                    </div>
-                    <div class="col-sm border border-secondary text-center">
-                        {$cer->alcohol}  
-                    </div>
-                    <div class="col-sm border border-secondary text-center">
+            <div class="row">
+                <div class="col-sm border border-secondary text-center">
+                      {$cer->id_cerveza}  
+                </div>
+                <div class="col-sm border border-secondary text-center">
+                      {$cer->nombre}  
+                </div>
+                <div class="col-sm border border-secondary text-center">
+                      {if $cer->imagen neq ""}
+                        <img src="{$base}/img/cervezas/{$cer->imagen}" height="60">
+                      {/if}
+                </div>
+                <div class="col-sm border border-secondary text-center">
+                      {$cer->Estilo}  
+                </div>
+                <div class="col-sm border border-secondary text-center">
+                      {$cer->amargor}  
+                </div>
+                <div class="col-sm border border-secondary text-center">
+                      {$cer->alcohol}  
+                </div>
+                <div class="col-sm border border-secondary text-center">
                         <a href ="{$base}/cerveza/{$cer->id_cerveza}">VER</a></br>
                         {if $admin}
-                            <a href="{$base}/cerveza/editar/{$cer->id_cerveza}">EDITAR</a></br>
-                            <a href="{$base}/cerveza/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
+                        <a href="{$base}/cerveza/editar/{$cer->id_cerveza}">EDITAR</a></br>
+                        <a href="{$base}/cerveza/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
                         {/if}
-                    </div>
                 </div>
+            </div>
             {/foreach}
 </body>
 </html>
