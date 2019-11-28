@@ -7,13 +7,12 @@
                     return false;
                 }
             }
-            return true;
         }else{
             foreach($keys as $k){
                 if( !isset($arr[$k]) || $arr[$k]=='' ){
                     return false;
                 }
             }
-            return true;
         }
+        return true;
     }

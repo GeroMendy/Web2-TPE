@@ -7,3 +7,26 @@
 .js-mostrar{
     display: block;
 }
+
+.hackerman{
+    animation-name: anima;
+    animation-iteration-count: 1;
+    animation-duration: 3s;
+    color: rgb(80, 235, 214);
+    filter: invert(1);
+    background-color: black;
+}
+
+@keyframes anima {
+    from {
+      color:black;
+      background-color: white;
+      filter: invert(0);
+    }
+  to{
+    transform: rotate(-360deg);
+    color: rgb(80, 235, 214);
+    filter: invert(1);
+    background-color: black;
+  }
+}

@@ -106,7 +106,7 @@
 
         private function sonIMG($imagenesTipos){
             foreach ($imagenesTipos as $tipo) {
-              if($tipo != ('image/jpeg'||'image/jpg'||'image/png')) {
+              if($tipo != ('image/jpeg'||'image/jpg'||'image/png'||'image/gif'||'image/bmp')) {
                 return false;
               }
             }

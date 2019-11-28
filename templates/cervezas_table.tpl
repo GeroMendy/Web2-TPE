@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    {if sizeof($cervezas) ne 1}
+    {if sizeof($cervezas) > 1}
         <a href="{$base}/cerveza/sorted/">Ordenar por Estilo</a></br>
     {/if}
     <form method='GET' action='{$base}/cerveza/filter/'>
@@ -50,35 +50,35 @@
             </div>
         </div>
             {foreach from=$cervezas item=cer}
-            <div class="row">
-                <div class="col-sm border border-secondary text-center">
-                      {$cer->id_cerveza}  
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                      {$cer->nombre}  
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                      {if $cer->imagen neq ""}
-                        <img src="{$base}/img/cervezas/{$cer->imagen}" height="60">
-                      {/if}
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                      {$cer->Estilo}  
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                      {$cer->amargor}  
-                </div>
-                <div class="col-sm border border-secondary text-center">
-                      {$cer->alcohol}  
-                </div>
-                <div class="col-sm border border-secondary text-center">
+                <div class="row">
+                    <div class="col-sm border border-secondary text-center">
+                        {$cer->id_cerveza}  
+                    </div>
+                    <div class="col-sm border border-secondary text-center">
+                        {$cer->nombre}  
+                    </div>
+                    <div class="col-sm border border-secondary text-center">
+                        {if $cer->imagen neq ""}
+                            <img src="{$base}/img/cervezas/{$cer->imagen}" height="60">
+                        {/if}
+                    </div>
+                    <div class="col-sm border border-secondary text-center">
+                        {$cer->Estilo}  
+                    </div>
+                    <div class="col-sm border border-secondary text-center">
+                        {$cer->amargor}  
+                    </div>
+                    <div class="col-sm border border-secondary text-center">
+                        {$cer->alcohol}  
+                    </div>
+                    <div class="col-sm border border-secondary text-center">
                         <a href ="{$base}/cerveza/{$cer->id_cerveza}">VER</a></br>
                         {if $admin}
-                        <a href="{$base}/cerveza/editar/{$cer->id_cerveza}">EDITAR</a></br>
-                        <a href="{$base}/cerveza/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
+                            <a href="{$base}/cerveza/editar/{$cer->id_cerveza}">EDITAR</a></br>
+                            <a href="{$base}/cerveza/eliminar/{$cer->id_cerveza}">ELIMINAR</a></br>
                         {/if}
+                    </div>
                 </div>
-            </div>
             {/foreach}
 </body>
 </html>
