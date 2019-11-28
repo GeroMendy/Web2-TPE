@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded",function(){
             if (comentarios.length!=0)
                 promedio = (valoracionTotal/comentarios.length);
             else promedio =0;
-            document.querySelector(".js_valoracion").innerHTML="Valoración promedio: "+(Math.round(promedio*100)/100);
+            document.querySelector("#js_valoracion").innerHTML="Valoración promedio: "+(Math.round(promedio*100)/100+" / 5");
             if (isAdmin())
                 setTimeout(funtion =>{linkearBotonesEliminarComentario(comentarios)},200);//Espero a que se generen los botones eliminar.
         })

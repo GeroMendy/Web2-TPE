@@ -27,7 +27,7 @@
             <h2>Estilo: {$cerveza->Estilo}</h2>
             <h2>Alcohol:  {$cerveza->alcohol}%</h2>
             <h2>Amargor: {$cerveza->amargor} IBU</h2>
-            <h2 class="js_valoracion"></h2>
+            <h2 id="js_valoracion"></h2>
         </fieldset></br>
         {if $logged}
             <fieldset>

@@ -27,6 +27,8 @@
         }
 
         public function deleteUser($id){
+            $delete = $this->db->prepare("DELETE FROM comentario WHERE id_usuario=?");//Podria llamar de un model o controller a otro?.
+            $delete->execute(array($id));
             $delete = $this->db->prepare("DELETE FROM ".$this->tabla." WHERE id_usuario=?");
             $delete->execute(array($id));
         }
